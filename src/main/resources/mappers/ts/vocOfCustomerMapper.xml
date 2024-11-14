@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.ts.voiceOfCustomerMapper">
+
+
+	<!-- CS접수 목록조회 -->
+	<select id="voiceOfCustomerAdmLst" resultType="VoiceOfCustomerVo">
+		<![CDATA[
+		{
+			call sp_ts_vocAdmLst(
+				#{startDate},
+				#{endDate},
+				#{status}
+			)
+		}
+		]]>
+	</select>
+
+	<!-- CS품목 목록조회 -->
+	<select id="voiceOfCustomerDtlLst" resultType="VoiceOfCustomerVo">
+		<![CDATA[
+		{
+			call sp_ts_vocDtlLst(
+				#{asNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- CS등록정보 저장 -->
+	<insert id="vocAdmIns">
+		<![CDATA[
+		{
+			call sp_ts_vocAdmIUD(
+				'insert',
+				#{idx},
+				#{asNo},
+				#{dealCorpIdx},
+				#{failureDate},
+				#{projectCd},
+				#{projectNm},
+				#{serialNo},
+				#{goodsNm},
+				#{goodsCd},
+				#{rcvChargr},
+				#{rcvDepartment},
+				#{receiveChargr},
+				#{receiveDepartment},
+				#{handler},
+				#{handlerDepartment},
+				#{faultyGubun},
+				#{faultyType},
+				#{faultyDesc},
+				#{requestDate},
+				#{dueDate},
+				#{completionDate},
+				#{status},
+				#{totalCost},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- CS등록정보 수정 -->
+	<update id="vocAdmUpd">
+		<![CDATA[
+		{
+			call sp_ts_vocAdmIUD(
+				'update',
+				#{idx},
+				#{asNo},
+				#{dealCorpIdx},
+				#{failureDate},
+				#{projectCd},
+				#{projectNm},
+				#{serialNo},
+				#{goodsNm},
+				#{goodsCd},
+				#{rcvChargr},
+				#{rcvDepartment},
+				#{receiveChargr},
+				#{receiveDepartment},
+				#{handler},
+				#{handlerDepartment},
+				#{faultyGubun},
+				#{faultyType},
+				#{faultyDesc},
+				#{requestDate},
+				#{dueDate},
+				#{completionDate},
+				#{status},
+				#{totalCost},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- CS등록정보 삭제 -->
+	<delete id="vocAdmDel">
+		<![CDATA[
+		{
+			call sp_ts_vocAdmIUD(
+				'delete',
+				#{idx},
+				#{asNo},
+				#{dealCorpIdx},
+				#{failureDate},
+				#{projectCd},
+				#{projectNm},
+				#{serialNo},
+				#{goodsNm},
+				#{goodsCd},
+				#{rcvChargr},
+				#{rcvDepartment},
+				#{receiveChargr},
+				#{receiveDepartment},
+				#{handler},
+				#{handlerDepartment},
+				#{faultyGubun},
+				#{faultyType},
+				#{faultyDesc},
+				#{requestDate},
+				#{dueDate},
+				#{completionDate},
+				#{status},
+				#{totalCost},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- CS등록정보 저장 -->
+	<!-- 	#{goodsDc}, -->
+	<insert id="vocDtlIns">
+		<![CDATA[
+		{
+			call sp_ts_vocDtlIUD(
+				'insert',
+				#{asNo},
+				#{asNoSeq},
+				#{goodsCd},
+				#{goodsNm},
+				#{consumption},
+				#{unitPrice},
+				#{paidFree},
+				#{priceCost},
+				#{repairCost},
+				#{travelExpense},
+				#{etcCost},
+				#{totalCost},
+				#{handling},
+				#{remarks},
+				#{whsIdx},
+				#{whsGubun},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- CS등록정보 수정 -->
+	<!-- 	#{goodsDc}, -->
+	<update id="vocDtlUpd">
+		<![CDATA[
+		{
+			call sp_ts_vocDtlIUD(
+				'update',
+				#{asNo},
+				#{asNoSeq},
+				#{goodsCd},
+				#{goodsNm},
+				#{consumption},
+				#{unitPrice},
+				#{paidFree},
+				#{priceCost},
+				#{repairCost},
+				#{travelExpense},
+				#{etcCost},
+				#{totalCost},
+				#{handling},
+				#{remarks},
+				#{whsIdx},
+				#{whsGubun},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- CS등록정보 삭제 -->
+	<!-- 	#{goodsDc}, -->
+	<delete id="vocDtlDel">
+		<![CDATA[
+		{
+			call sp_ts_vocDtlIUD(
+				'delete',
+				#{asNo},
+				#{asNoSeq},
+				#{goodsCd},
+				#{goodsNm},
+				#{consumption},
+				#{unitPrice},
+				#{paidFree},
+				#{priceCost},
+				#{repairCost},
+				#{travelExpense},
+				#{etcCost},
+				#{totalCost},
+				#{handling},
+				#{remarks},
+				#{whsIdx},
+				#{whsGubun},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- A/S번호 채번 -->
+	<select id="getAsNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_ts_getAsNo()
+		}
+		]]>
+	</select>
+
+	
+	
+</mapper>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.ts.csReceiveMapper">
+
+
+	<!-- CS접수 목록조회 -->
+	<select id="csReceiveAdmList" resultType="CsReceiveVo">
+		<![CDATA[
+		{
+			call sp_ts_csAdmLst(
+				#{startDate},
+				#{endDate},
+				#{startPrsDate},
+				#{endPrsDate},
+				#{paidFree},
+				#{resultGubun}
+			)
+		}
+		]]>
+	</select>
+
+	<!-- CS품목 목록조회 -->
+	<select id="csReceiveDtlList" resultType="CsReceiveVo">
+		<![CDATA[
+		{
+			call sp_ts_csDtlLst(
+				#{asNo}
+			)
+		}
+		]]>
+	</select>
+
+	<!-- CS등록정보 조회 -->
+	<select id="csReceiveAdmRead" resultType="CsReceiveVo">
+		<![CDATA[
+		{
+			call sp_ts_csAdmSel(
+				#{asNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- CS등록정보 저장 -->
+	<insert id="admCsInsert">
+		<![CDATA[
+		{
+			call sp_ts_csAdmIUD(
+				'insert',
+				#{asNo},
+				#{idx},
+				#{companyNm},
+				#{phoneNumber},
+				#{addressAdm},
+				#{rcvChargr},
+				#{receiveChargr},
+				#{faultyType},
+				#{dtlDesc},
+				#{prjCd},
+				#{cmplnDate},
+				#{resultGubun},
+				#{paidFree},
+				#{processDate},
+				#{processUser},
+				#{totalCost},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- CS등록정보 수정 -->
+	<update id="admCsUpdate">
+		<![CDATA[
+		{
+			call sp_ts_csAdmIUD(
+				'update',
+				#{asNo},
+				#{idx},
+				#{companyNm},
+				#{phoneNumber},
+				#{addressAdm},
+				#{rcvChargr},
+				#{receiveChargr},
+				#{faultyType},
+				#{dtlDesc},
+				#{prjCd},
+				#{cmplnDate},
+				#{resultGubun},
+				#{paidFree},
+				#{processDate},
+				#{processUser},
+				#{totalCost},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- CS등록정보 삭제 -->
+	<delete id="admCsDelete">
+		<![CDATA[
+		{
+			call sp_ts_csAdmIUD(
+				'delete',
+				#{asNo},
+				#{idx},
+				#{companyNm},
+				#{phoneNumber},
+				#{addressAdm},
+				#{rcvChargr},
+				#{receiveChargr},
+				#{faultyType},
+				#{dtlDesc},
+				#{prjCd},
+				#{cmplnDate},
+				#{resultGubun},
+				#{paidFree},
+				#{processDate},
+				#{processUser},
+				#{totalCost},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- CS품목 저장 -->
+	<insert id="dtlCsInsert">
+		<![CDATA[
+		{
+			call sp_ts_csDtlIUD(
+				'insert',
+				#{idx},
+				#{asNo},
+				#{subAsNo},
+				#{serialNo},
+				#{moduleNm},
+				#{itemGubun1},
+				#{itemGubun2},
+				#{cmplnDate},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- CS품목 수정 -->
+	<update id="dtlCsUpdate">
+		<![CDATA[
+		{
+			call sp_ts_csDtlIUD(
+				'update',
+				#{idx},
+				#{asNo},
+				#{subAsNo},
+				#{serialNo},
+				#{moduleNm},
+				#{itemGubun1},
+				#{itemGubun2},
+				#{cmplnDate},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- CS품목 삭제 -->
+	<delete id="dtlCsDelete">
+		<![CDATA[
+		{
+			call sp_ts_csDtlIUD(
+				'delete',
+				#{idx},
+				#{asNo},
+				#{subAsNo},
+				#{serialNo},
+				#{moduleNm},
+				#{itemGubun1},
+				#{itemGubun2},
+				#{cmplnDate},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+<!-- 	<delete id="csDtlCheck"> -->
+<!-- 		<![CDATA[ -->
+<!-- 		{ -->
+<!-- 			call sp_ts_csDtlCheck( -->
+<!-- 				#{asNo} -->
+<!-- 			) -->
+<!-- 		} -->
+<!-- 		]]> -->
+<!-- 	</delete> -->
+	
+	<!-- A/S번호 채번 -->
+	<select id="getAsNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_ts_getAsNo()
+		}
+		]]>
+	</select>
+	
+	<!-- 서브A/S번호 채번 -->
+	<select id="getSubAsNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_ts_getSubAsNo(
+				#{asNo}
+			)
+		}
+		]]>
+	</select>
+	
+	
+</mapper>

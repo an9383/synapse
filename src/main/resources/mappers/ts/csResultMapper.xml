@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.ts.csResultMapper">
+
+
+	<!-- 승인관리 목록조회 -->
+	<select id="csResultList" resultType="CsResultVo">
+		<![CDATA[
+		{
+			call sp_ts_csResultLst(
+				#{asNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<insert id="csResultInsert">
+		<![CDATA[
+		{
+			call sp_ts_csResultIUD(
+				'insert',
+				#{idx},
+				#{asNo},
+				#{subAsNo},
+				#{itemCd},
+				#{itemNm},
+				#{itemDc},
+				#{stockQty},
+				#{consumption},
+				#{paidFree},
+				#{priceCost},
+				#{repairCost},
+				#{etcCost},
+				#{travelExpense},
+				#{totalCost},
+				#{processing},
+				#{resultDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<update id="csResultUpdate">
+		<![CDATA[
+		{
+			call sp_ts_csResultIUD(
+				'update',
+				#{idx},
+				#{asNo},
+				#{subAsNo},
+				#{itemCd},
+				#{itemNm},
+				#{itemDc},
+				#{stockQty},
+				#{consumption},
+				#{paidFree},
+				#{priceCost},
+				#{repairCost},
+				#{etcCost},
+				#{travelExpense},
+				#{totalCost},
+				#{processing},
+				#{resultDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<delete id="csResultDelete">
+		<![CDATA[
+		{
+			call sp_ts_csResultIUD(
+				'delete',
+				#{idx},
+				#{asNo},
+				#{subAsNo},
+				#{itemCd},
+				#{itemNm},
+				#{itemDc},
+				#{stockQty},
+				#{consumption},
+				#{paidFree},
+				#{priceCost},
+				#{repairCost},
+				#{etcCost},
+				#{travelExpense},
+				#{totalCost},
+				#{processing},
+				#{resultDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+</mapper>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bm.baseInfoAdmMapper">
+	
+	<resultMap id="BaseInfoAdmVo" type="mes.domain.bm.BaseInfoAdmVo">
+		<result property="baseInfoSeq"		column="BASE_INFO_SEQ"			/>
+		<result property="baseInfoType"		column="BASE_INFO_TYPE"			/>
+		<result property="baseInfoGubunNm"	column="BASE_INFO_GUBUN_NM"		/>
+		<result property="baseInfoGubun"	column="BASE_INFO_GUBUN"		/>
+		<result property="baseInfoCd"		column="BASE_INFO_CD"			/>
+		<result property="baseInfoNm"		column="BASE_INFO_NM"			/>
+		<result property="etc1"				column="ETC1"					/>
+		<result property="etc1Nm"			column="ETC1_NM"				/>
+		<result property="etc2"				column="ETC2"					/>
+		<result property="etc3"				column="ETC3"					/>
+		<result property="etc4"				column="ETC4"					/>
+		<result property="etc5"				column="ETC5"					/>
+		<result property="useYn"			column="USE_YN"					/>
+		<result property="useYnNm"			column="USE_YN_NM"				/>		
+		<result property="baseInfoDesc"		column="BASE_INFO_DESC"			/>
+		<result property="regIdx"			column="REG_IDX"					/>
+		<result property="regDate"			column="REG_DATE"				/>
+		<result property="updIdx"			column="UPD_IDX"					/>
+		<result property="updDate"			column="UPD_DATE"				/>
+		<result property="areaCd"			column="AREA_CD"				/>
+		<result property="areaNm"			column="AREA_NM"				/>
+	</resultMap>
+	
+	<!-- 불량유형 전체 목록 -->
+	<select id="baseInfoFtLst" resultMap="BaseInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_baseInfoFtLst(
+				
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 불량유형 상세 목록 -->
+	<select id="baseInfoFtSel" resultMap="BaseInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_baseInfoFtSel(
+				#{baseInfoSeq},
+				#{baseInfoType}
+			)
+		}
+		]]>
+	</select>
+
+	<!-- 불량유형 등록 -->
+	<insert id="baseInfoFtIns" parameterType="mes.domain.bm.BaseInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_baseInfoFtIUD(
+				'insert',
+				#{baseInfoSeq},
+				#{baseInfoType},
+				#{baseInfoGubun},
+				#{baseInfoCd},
+				#{baseInfoNm},
+				#{baseInfoDesc},
+				#{useYn},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate} 
+			)
+		}
+		]]>
+	</insert>
+
+	<!-- 불량유형 수정 -->
+	<update id="baseInfoFtUpd" parameterType="mes.domain.bm.BaseInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_baseInfoFtIUD(
+				'update',
+				#{baseInfoSeq},
+				#{baseInfoType},
+				#{baseInfoGubun},
+				#{baseInfoCd},
+				#{baseInfoNm},
+				#{baseInfoDesc},
+				#{useYn},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate} 
+			)
+		}
+		]]>
+	</update>
+	
+	<delete id="baseInfoFtDataDel">
+		<![CDATA[
+		{
+			call sp_bm_baseInfoFtIUD(
+				'delete',
+				#{baseInfoSeq},
+				#{baseInfoType},
+				#{baseInfoGubun},
+				#{baseInfoCd},
+				#{baseInfoNm},
+				#{baseInfoDesc},
+				#{useYn},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate} 
+			)
+		}
+		]]>
+	</delete>
+	
+</mapper>

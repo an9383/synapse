@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.mm.managementMapper">
+
+	<!-- 진척현황리스트 조회 -->
+	<select id="managementBoard" resultType="ManagementVo">
+		<![CDATA[
+		{
+			call sp_mm_managementBoard (
+				#{startDate},
+				#{endDate},
+				#{prjCd}
+			)
+		}
+		]]>
+	</select>
+</mapper>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.em.manufactEquipMapper">
+
+	<!-- 제조설비관리 목록조회 -->
+	<select id="manufactEquipList" resultType="ManufactEquipVo">
+		<![CDATA[
+		{
+			call sp_em_manufactEquipList(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 제조설비관리 등록 -->
+	<insert id="manufactEquipIns" parameterType="ManufactEquipVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_em_manufactEquipIUD(
+				'insert',
+				#{idx},
+				#{managementNumber},
+				#{existingManagementNumber},
+				#{registrationDate},
+				#{projectNumber},
+				#{orderNumber},
+				#{productName},
+				#{modelName},
+				#{productSerialNumber},
+				#{productLocation},
+				#{specification},
+				#{quantity},
+				#{unitPrice},
+				#{supplyAmount},
+				#{responsiblePerson},
+				#{deliveryDestination},
+				#{vendorResponsible},
+				#{vendorContact},
+				#{disposeDate},
+				#{useYn},
+				#{remarks},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{deleteList}
+			)
+		}
+		]]>
+		<selectKey resultType="String" keyProperty="idx" order="AFTER">
+			SELECT IDENT_CURRENT('TB_MANUFACT_EQUIP')
+		</selectKey>
+	</insert>
+	
+	<!-- 제조설비관리 수정 -->
+	<update id="manufactEquipUpd" parameterType="ManufactEquipVo">
+		<![CDATA[
+		{
+			call sp_em_manufactEquipIUD(
+				'update',
+				#{idx},
+				#{managementNumber},
+				#{existingManagementNumber},
+				#{registrationDate},
+				#{projectNumber},
+				#{orderNumber},
+				#{productName},
+				#{modelName},
+				#{productSerialNumber},
+				#{productLocation},
+				#{specification},
+				#{quantity},
+				#{unitPrice},
+				#{supplyAmount},
+				#{responsiblePerson},
+				#{deliveryDestination},
+				#{vendorResponsible},
+				#{vendorContact},
+				#{disposeDate},
+				#{useYn},
+				#{remarks},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{deleteList}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 제조설비관리 삭제 -->
+	<delete id="manufactEquipDel" parameterType="ManufactEquipVo">
+		<![CDATA[
+		{
+			call sp_em_manufactEquipIUD(
+				'delete',
+				#{idx},
+				#{managementNumber},
+				#{existingManagementNumber},
+				#{registrationDate},
+				#{projectNumber},
+				#{orderNumber},
+				#{productName},
+				#{modelName},
+				#{productSerialNumber},
+				#{productLocation},
+				#{specification},
+				#{quantity},
+				#{unitPrice},
+				#{supplyAmount},
+				#{responsiblePerson},
+				#{deliveryDestination},
+				#{vendorResponsible},
+				#{vendorContact},
+				#{disposeDate},
+				#{useYn},
+				#{remarks},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{deleteList}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 제조설비관리 프로젝트 목록조회 -->
+	<select id="manufactEquipProjectList" resultType="ManufactEquipVo">
+		<![CDATA[
+		{
+			call sp_em_manufactEquipProjectList(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 제조설비관리 파일 목록조회 -->
+	<select id="manufactEquipFileList" resultType="ManufactEquipVo">
+		<![CDATA[
+		{
+			call sp_em_manufactEquipFileList(
+				#{manufactEquipIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 제조설비관리 파일 등록 -->
+	<insert id="manufactEquipFileIns" parameterType="ManufactEquipVo">
+		<![CDATA[
+		{
+			call sp_em_manufactEquipFileIUD(
+				'insert',
+				#{idx},
+				#{insertList}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 제조설비관리 파일 삭제 -->
+	<delete id="manufactEquipFileDel" parameterType="ManufactEquipVo">
+		<![CDATA[
+		{
+			call sp_em_manufactEquipFileIUD(
+				'delete',
+				#{idx},
+				#{insertList}
+			)
+		}
+		]]>
+	</delete>
+</mapper>

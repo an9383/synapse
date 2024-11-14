@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mes.mappers.qm.inspectMapper">
+
+	<!-- 검사 ADM 조회 -->
+	<select id="inspectAdmSel" resultType="InspectVo">
+		<![CDATA[
+		{
+			call sp_qm_inspectAdmSel (
+				#{bizOrdAdmIdx},
+				#{serialNoIdx},
+				#{inputGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 검사 DTL 조회 -->
+	<select id="inspectDtlLst" resultType="InspectVo">
+		<![CDATA[
+		{
+			call sp_qm_inspectDtlLst (
+				#{inspectIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 마지막으로 등록된 검사 DTL 조회 -->
+	<select id="lastCreateInspectDtlLst" resultType="InspectVo">
+		<![CDATA[
+		{
+			call sp_qm_lastCreateInspectDtlLst (
+				#{goodsNm}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 마지막으로 등록된 검사 DTL 조회 -->
+	<select id="getMaxInspectDtlIdx" resultType="int">
+		<![CDATA[
+		{
+			call sp_qm_getMaxInspectDtlIdx (
+				#{inspectIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	
+	
+	
+	<!-- 검사 ADM 등록	 -->
+	<insert id="inspectAdmIns" parameterType="InspectVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_qm_inspectAdmIUD(
+				'insert',
+				#{idx},
+				#{bizOrdAdmIdx},
+				#{serialNoIdx},
+				#{inputGubun},
+				#{approvalYn},
+				#{approvalDate},
+				#{admUserIdx},
+				#{produceUserIdx},
+				#{qaUserIdx},
+				#{inspectAdmDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+		<selectKey resultType="String" keyProperty="idx" order="AFTER">
+			SELECT IDENT_CURRENT('TB_INSPECT_ADM')
+		</selectKey>
+	</insert>
+	
+	<!-- 검사 ADM 수정 -->
+	<update id="inspectAdmUpd" parameterType="InspectVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_qm_inspectAdmIUD(
+				'update',
+				#{idx},
+				#{bizOrdAdmIdx},
+				#{serialNoIdx},
+				#{inputGubun},
+				#{approvalYn},
+				#{approvalDate},
+				#{admUserIdx},
+				#{produceUserIdx},
+				#{qaUserIdx},
+				#{inspectAdmDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 검사 ADM 삭제 -->
+	<delete id="inspectAdmDel" parameterType="InspectVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_qm_inspectAdmIUD(
+				'delete',
+				#{idx},
+				#{bizOrdAdmIdx},
+				#{serialNoIdx},
+				#{inputGubun},
+				#{approvalYn},
+				#{approvalDate},
+				#{admUserIdx},
+				#{produceUserIdx},
+				#{qaUserIdx},
+				#{inspectAdmDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 검사 DTL 등록	 -->
+	<insert id="inspectDtlIns" parameterType="InspectVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_qm_inspectDtlIUD(
+				'insert',
+				#{insertJson},
+				#{inspectIdx},
+				#{idx},
+				#{items},
+				#{checkDepartmentCd},
+				#{checkCd},
+				#{passCd},
+				#{inspectDate},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{inspectDtlDesc},
+				#{dtlUserIdx},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 검사 DTL 수정 -->
+	<update id="inspectDtlUpd" parameterType="InspectVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_qm_inspectDtlIUD(
+				'update',
+				#{insertJson},
+				#{inspectIdx},
+				#{idx},
+				#{items},
+				#{checkDepartmentCd},
+				#{checkCd},
+				#{passCd},
+				#{inspectDate},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{inspectDtlDesc},
+				#{dtlUserIdx},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 검사 DTL 삭제 -->
+	<delete id="inspectDtlDel" parameterType="InspectVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_qm_inspectDtlIUD(
+				'delete',
+				#{insertJson},
+				#{inspectIdx},
+				#{idx},
+				#{items},
+				#{checkDepartmentCd},
+				#{checkCd},
+				#{passCd},
+				#{inspectDate},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{inspectDtlDesc},
+				#{dtlUserIdx},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 공정검사 Lst 조회 -->
+	<select id="prcssInspectAdmLst" resultType="InspectVo">
+		<![CDATA[
+		{
+			call sp_qm_prcssInspectAdmLst(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공정검사 등록 -->
+	<insert id="prcssInspectAdmIns" parameterType="InspectVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_qm_prcssInspectAdmIUD(
+				'insert',
+				#{idx},
+				#{bizOrdAdmIdx},
+				#{prcssIdx},
+				#{inspectUserIdx},
+				#{inspectQty},
+				#{inspectDate},
+				#{inspectDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공정검사 수정 -->
+	<update id="prcssInspectAdmUpd" parameterType="InspectVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_qm_prcssInspectAdmIUD(
+				'update',
+				#{idx},
+				#{bizOrdAdmIdx},
+				#{prcssIdx},
+				#{inspectUserIdx},
+				#{inspectQty},
+				#{inspectDate},
+				#{inspectDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 공정검사 삭제 -->
+	<delete id="prcssInspectAdmDel" parameterType="InspectVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_qm_prcssInspectAdmIUD(
+				'delete',
+				#{idx},
+				#{bizOrdAdmIdx},
+				#{prcssIdx},
+				#{inspectUserIdx},
+				#{inspectQty},
+				#{inspectDate},
+				#{inspectDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 공정검사 관련자료 Lst 조회 -->
+	<select id="prcssInspectFileLst" resultType="InspectVo">
+		<![CDATA[
+		{
+			call sp_qm_prcssInspectFileLst(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공정검사 관련자료 등록 -->
+	<insert id="prcssInspectFileIns" parameterType="InspectVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_qm_prcssInspectFileIUD(
+				'insert',
+				#{idx},
+				#{admIdx},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공정검사 관련자료 삭제 -->
+	<delete id="prcssInspectFileDel" parameterType="InspectVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_qm_prcssInspectFileIUD(
+				'delete',
+				#{idx},
+				#{admIdx},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 등록 후 해당 항목 IDX 불러오기 -->
+	<select id="prcssInspectAdmIdxSel" resultType="int">
+		<![CDATA[
+		{
+			call sp_qm_prcssInspectAdmIdxSel(
+				
+			)
+		}
+		]]>
+	</select>
+	
+</mapper>

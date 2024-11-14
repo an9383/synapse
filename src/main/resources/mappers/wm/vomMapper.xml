@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.wm.vomMapper">
+
+	<select id="vomList" resultType="VomVo">
+	<![CDATA[
+	{
+		call sp_wm_vomReqLst(
+			#{startDate},
+			#{endDate}
+		)
+	}
+	]]>
+	</select>
+	
+	<insert id="vomIns" statementType="CALLABLE" parameterType="VomVo">
+	<![CDATA[
+	{
+		call sp_wm_vomReqIUD(
+			'insert',
+			#{idx},
+			#{projectCd},
+			#{projectNm},
+			#{serialNo},
+			#{vomSite},
+			#{userIdx},
+			#{userDepartment},
+			#{inspectDate},
+			#{reqDate},
+			#{goodsNm},
+			#{goodsType},
+			#{unit},
+			#{module},
+			#{drawNo},
+			#{faultyCause},
+			#{faultyType},
+			#{statusAndProblem},
+			#{reqResult},
+			#{solution},
+			#{actDepartment},
+			#{actChargr},
+			#{actStartDate},
+			#{actEndDate},
+			#{procDays},
+			#{procResult},
+			#{vomDesc},
+			#{regIdx},
+			#{regDate},
+			#{updIdx},
+			#{updDate}
+		)
+	}
+	]]>
+	</insert>
+	
+	<update id="vomUpd" statementType="CALLABLE" parameterType="VomVo">
+	<![CDATA[
+	{
+		call sp_wm_vomReqIUD(
+			'update',
+			#{idx},
+			#{projectCd},
+			#{projectNm},
+			#{serialNo},
+			#{vomSite},
+			#{userIdx},
+			#{userDepartment},
+			#{inspectDate},
+			#{reqDate},
+			#{goodsNm},
+			#{goodsType},
+			#{unit},
+			#{module},
+			#{drawNo},
+			#{faultyCause},
+			#{faultyType},
+			#{statusAndProblem},
+			#{reqResult},
+			#{solution},
+			#{actDepartment},
+			#{actChargr},
+			#{actStartDate},
+			#{actEndDate},
+			#{procDays},
+			#{procResult},
+			#{vomDesc},
+			#{regIdx},
+			#{regDate},
+			#{updIdx},
+			#{updDate}
+		)
+	}
+	]]>
+	</update>
+	
+	
+	<delete id="vomDel" statementType="CALLABLE" parameterType="VomVo">
+	<![CDATA[
+	{
+		call sp_wm_vomReqIUD(
+			'delete',
+			#{idx},
+			#{projectCd},
+			#{projectNm},
+			#{serialNo},
+			#{vomSite},
+			#{userIdx},
+			#{userDepartment},
+			#{inspectDate},
+			#{reqDate},
+			#{goodsNm},
+			#{goodsType},
+			#{unit},
+			#{module},
+			#{drawNo},
+			#{faultyCause},
+			#{faultyType},
+			#{statusAndProblem},
+			#{reqResult},
+			#{solution},
+			#{actDepartment},
+			#{actChargr},
+			#{actStartDate},
+			#{actEndDate},
+			#{procDays},
+			#{procResult},
+			#{vomDesc},
+			#{regIdx},
+			#{regDate},
+			#{updIdx},
+			#{updDate}
+		)
+	}
+	]]>
+	</delete>
+	
+	<select id="vomFileList" resultType="VomVo">
+	<![CDATA[
+	{
+		call sp_wm_vomFileLst(
+			#{vomIdx},
+			#{inputGubun}
+		)
+	}
+	]]>
+	</select>
+	
+	<!-- 프로젝트 파일 등록 -->
+	<insert id="vomFileIns" statementType="CALLABLE" parameterType="VomVo">
+	<![CDATA[
+	{
+		call sp_wm_vomFileIUD(
+			'insert',
+			#{idx},
+			#{vomIdx},
+			#{inputGubun},
+			#{documentNm},
+			#{userIdx},
+			#{uuid},
+			#{fileName},
+			#{fileExt},
+			#{fileDesc},
+			#{regIdx},
+			#{updIdx}
+		)
+	}
+	]]>
+	</insert>
+
+	<!-- 프로젝트 파일 수정 -->
+	<update id="vomFileUpd" statementType="CALLABLE" parameterType="VomVo">
+	<![CDATA[
+	{
+		call sp_wm_vomFileIUD(
+			'update',
+			#{idx},
+			#{vomIdx},
+			#{inputGubun},
+			#{documentNm},
+			#{userIdx},
+			#{uuid},
+			#{fileName},
+			#{fileExt},
+			#{fileDesc},
+			#{regIdx},
+			#{updIdx}
+		)
+	}
+	]]>
+	</update>
+	
+	<!-- 프로젝트 파일 삭제 -->
+	<delete id="vomFileDel" statementType="CALLABLE" parameterType="VomVo">
+	<![CDATA[
+	{
+		call sp_wm_vomFileIUD(
+			'delete',
+			#{idx},
+			#{vomIdx},
+			#{inputGubun},
+			#{documentNm},
+			#{userIdx},
+			#{uuid},
+			#{fileName},
+			#{fileExt},
+			#{fileDesc},
+			#{regIdx},
+			#{updIdx}
+		)
+	}
+	]]>
+	</delete>
+	
+	<select id="vomImgFileSel" resultType="VomVo">
+	<![CDATA[
+	{
+		call sp_wm_vomImageSel(
+			#{vomIdx}
+		)
+	}
+	]]>
+	</select>
+	
+	<insert id="vomImgFileIns" parameterType="VomVo">
+	<![CDATA[
+	{
+		call sp_wm_vomImageIUD(
+			'insert',
+			#{idx},
+			#{vomIdx},
+			#{vomImage1},
+			#{vomImage2},
+			#{vomImage3},
+			#{vomImage4},
+			#{regIdx},
+			#{updIdx}
+			
+		)
+	}
+	]]>
+	</insert>
+	
+	<update id="vomImgFileUpd" parameterType="VomVo">
+	<![CDATA[
+	{
+		call sp_wm_vomImageIUD(
+			'update',
+			#{idx},
+			#{vomIdx},
+			#{vomImage1},
+			#{vomImage2},
+			#{vomImage3},
+			#{vomImage4},
+			#{regIdx},
+			#{updIdx}
+			
+		)
+	}
+	]]>
+	</update>
+</mapper>

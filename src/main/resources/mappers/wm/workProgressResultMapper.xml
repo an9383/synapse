@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.wm.workProgressResultMapper">
+
+	<!-- 진행결과 마스터 리스트 조회(+수주 데이터) -->
+	<select id="workProgressResultAdmLst" resultType="WorkProgressResultVo">
+		<![CDATA[
+		{
+			call sp_wm_workProgressResultAdmLst (
+				#{startDate},
+				#{endDate},
+				#{prjCd},
+				#{dealCorpIdx},
+				#{workStatus}
+			)
+		}
+		]]>
+	</select>
+
+	<!-- 진행결과 마스터 등록 -->
+	<insert id="workProgressResultAdmIns" statementType="CALLABLE" parameterType="ItemPurchaseVo">
+		<![CDATA[
+		{
+			call sp_wm_workProgressResultAdmIUD (
+				'insert',
+				#{idx},
+				#{bizOrdAdmIdx},
+				#{workStatus},
+				#{admStartDate},
+				#{admEndDate},
+				#{admWorkChargr},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 진행결과 마스터 수정 -->
+	<update id="workProgressResultAdmUpd" statementType="CALLABLE" parameterType="ItemPurchaseVo">
+		<![CDATA[
+		{
+			call sp_wm_workProgressResultAdmIUD (
+				'update',
+				#{idx},
+				#{bizOrdAdmIdx},
+				#{workStatus},
+				#{admStartDate},
+				#{admEndDate},
+				#{admWorkChargr},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 진행결과 마스터 삭제 -->
+	<delete id="workProgressResultAdmDel" statementType="CALLABLE" parameterType="ItemPurchaseVo">
+		<![CDATA[
+		{
+			call sp_wm_workProgressResultAdmIUD (
+				'delete',
+				#{idx},
+				#{bizOrdAdmIdx},
+				#{workStatus},
+				#{admStartDate},
+				#{admEndDate},
+				#{admWorkChargr},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 진행결과 디테일 리스트 조회(+프로세스 항목 데이터) -->
+	<select id="workProgressResultDtlLst" resultType="WorkProgressResultVo">
+		<![CDATA[
+		{
+			call sp_wm_workProgressResultDtlLst (
+				#{bizOrdAdmIdx}
+			)
+		}
+		]]>
+	</select>
+	
+		<!-- 진행결과 디테일 등록 -->
+	<insert id="workProgressResultDtlIns" statementType="CALLABLE" parameterType="ItemPurchaseVo">
+		<![CDATA[
+		{
+			call sp_wm_workProgressResultDtlIUD (
+				'insert',
+				#{bizOrdAdmIdx},
+				#{largeIdx},
+				#{mediumIdx},
+				#{smallIdx},
+				#{dtlStartDate},
+				#{dtlEndDate},
+				#{dtlWorkChargr},
+				#{workCheck},
+				#{workContents},
+				#{workDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 진행결과 디테일 수정 -->
+	<update id="workProgressResultDtlUpd" statementType="CALLABLE" parameterType="ItemPurchaseVo">
+		<![CDATA[
+		{
+			call sp_wm_workProgressResultDtlIUD (
+				'update',
+				#{bizOrdAdmIdx},
+				#{largeIdx},
+				#{mediumIdx},
+				#{smallIdx},
+				#{dtlStartDate},
+				#{dtlEndDate},
+				#{dtlWorkChargr},
+				#{workCheck},
+				#{workContents},
+				#{workDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 진행결과 디테일 삭제 -->
+	<delete id="workProgressResultDtlDel" statementType="CALLABLE" parameterType="ItemPurchaseVo">
+		<![CDATA[
+		{
+			call sp_wm_workProgressResultDtlIUD (
+				'delete',
+				#{bizOrdAdmIdx},
+				#{largeIdx},
+				#{mediumIdx},
+				#{smallIdx},
+				#{dtlStartDate},
+				#{dtlEndDate},
+				#{dtlWorkChargr},
+				#{workCheck},
+				#{workContents},
+				#{workDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 등록된 데이터 확인 체크 여부 조회 -->
+	<select id="workCheckCount" resultType="WorkProgressResultVo">
+		{
+			call sp_wm_workCheckCount (
+				#{bizOrdAdmIdx}
+			)
+		}
+	</select>
+</mapper>

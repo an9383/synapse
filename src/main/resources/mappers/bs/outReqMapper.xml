@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bs.outReqMapper">
+	
+	<!-- =========================== 출고등록 메인 ========================================== -->
+	<!-- 출고등록 메인 목록조회 -->
+	<select id="bizOrderOutReqLst" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderOutReqLst(
+				#{startDate},
+				#{endDate},
+				#{projectCd},
+				#{status}
+			)
+		}
+		]]>
+	</select>
+	
+	
+	<!-- =========================== 출고등록 출고처리 ========================================== -->
+	<!-- 출고등록 출고처리 메인 목록조회 -->
+	<select id="outReqAdmLst" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_outReqAdmLst(
+				#{bizOrdIdx},
+				#{bizOrdNo},
+				#{bizOrdSeq}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 자재구매요청등록 요청번호 조회 -->
+	<select id="outReqAdmGetOutReqNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_bs_outReqAdmGetOutReqNo()
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 메인 등록 -->
+	<insert id="outReqAdmIns" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+	 		{ 
+	 			call sp_bs_outReqAdmIUD(  
+	 				'insert',  
+	 				#{idx},  
+	 				#{outReqNo},  
+	 				#{outDate},  
+	 				#{outQty},  
+	 				#{bizOrdIdx},
+	 				#{bizOrdNo},
+	 				#{bizOrdSeq},  
+	 				#{prjCd},  
+	 				#{prjNm},  
+	 				#{regIdx},  
+	 				#{regDate},  
+	 				#{updIdx},  
+	 				#{updDate}  
+	 			)  
+	 		}  
+ 		]]>
+	</insert>
+	
+	<!-- 수주관리 메인 수정 -->
+	<update id="outReqAdmUpd" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+	 		{ 
+	 			call sp_bs_outReqAdmIUD(  
+	 				'update',  
+	 				#{idx},  
+	 				#{outReqNo},  
+	 				#{outDate},  
+	 				#{outQty},  
+	 				#{bizOrdIdx},
+	 				#{bizOrdNo},
+	 				#{bizOrdSeq},  
+	 				#{prjCd},  
+	 				#{prjNm},  
+	 				#{regIdx},  
+	 				#{regDate},  
+	 				#{updIdx},  
+	 				#{updDate}  
+	 			)  
+	 		}  
+ 		]]>
+	</update>
+	
+	<!-- 수주관리 메인 삭제 -->
+	<delete id="outReqAdmDel" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+	 		{ 
+	 			call sp_bs_outReqAdmIUD(  
+	 				'delete',  
+	 				#{idx},  
+	 				#{outReqNo},  
+	 				#{outDate},  
+	 				#{outQty},  
+	 				#{bizOrdIdx},
+	 				#{bizOrdNo},
+	 				#{bizOrdSeq},  
+	 				#{prjCd},  
+	 				#{prjNm},  
+	 				#{regIdx},  
+	 				#{regDate},  
+	 				#{updIdx},  
+	 				#{updDate}  
+	 			)  
+	 		}  
+ 		]]>
+	</delete>
+	
+	<!-- =========================== 출고처리 Serial No ========================================== -->
+	<!-- 출고처리 Serial No 목록조회 -->
+	<select id="outReqDtlLst" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_outReqDtlLst(
+				#{outReqIdx},
+				#{outReqNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 메인 등록 -->
+	<insert id="outReqDtlIns" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+	 		{ 
+	 			call sp_bs_outReqDtlIUD(  
+	 				'insert',  
+	 				#{idx},  
+	 				#{outReqIdx},  
+	 				#{outReqNo},  
+	 				#{serialNo},  
+	 				#{regIdx},  
+	 				#{regDate},  
+	 				#{updIdx},  
+	 				#{updDate}  
+	 			)  
+	 		}  
+ 		]]>
+	</insert>
+	
+	<!-- 수주관리 메인 수정 -->
+	<update id="outReqDtlUpd" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+	 		{ 
+	 			call sp_bs_outReqDtlIUD(  
+	 				'update',  
+	 				#{idx},  
+	 				#{outReqIdx},  
+	 				#{outReqNo},  
+	 				#{serialNo},  
+	 				#{regIdx},  
+	 				#{regDate},  
+	 				#{updIdx},  
+	 				#{updDate}  
+	 			)  
+	 		}  
+ 		]]>
+	</update>
+	
+	<!-- 수주관리 메인 삭제 -->
+	<delete id="outReqDtlDel" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+	 		{ 
+	 			call sp_bs_outReqDtlIUD(  
+	 				'delete',  
+	 				#{idx},  
+	 				#{outReqIdx},  
+	 				#{outReqNo},  
+	 				#{serialNo},  
+	 				#{regIdx},  
+	 				#{regDate},  
+	 				#{updIdx},  
+	 				#{updDate}   
+	 			)  
+	 		}  
+ 		]]>
+	</delete>
+	
+	<!-- CS등록 Serial No 목록조회 -->
+	<select id="outReqDtlSerialLst" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_outReqDtlSerialLst(
+				#{prjCd}
+			)
+		}
+		]]>
+	</select>
+	
+	
+	<!-- 수주관리 메인 상세조회 -->
+<!-- 	<select id="bizOrderAdmSel" resultType="BizOrderVo"> -->
+<!-- 		<![CDATA[ -->
+<!-- 		{ -->
+<!-- 			call sp_bs_bizOrderAdmSel( -->
+<!-- 				#{idx} -->
+<!-- 			) -->
+<!-- 		} -->
+<!-- 		]]> -->
+<!-- 	</select> -->
+	
+	<!-- 수주관리 메인 등록 -->
+<!-- 	<insert id="bizOrderAdmIns" statementType="CALLABLE" parameterType="BizOrderVo"> -->
+<!-- 		<![CDATA[ -->
+<!-- 		{ -->
+<!-- 			call sp_bs_bizOrderAdmIUD( -->
+<!-- 				'insert', -->
+<!-- 				#{idx}, -->
+<!-- 				#{ordDate}, -->
+<!-- 				#{dealCorpIdx}, -->
+<!-- 				#{bizOrdNo}, -->
+<!-- 				#{bizOrdSeq}, -->
+<!-- 				#{prjSeq}, -->
+<!-- 				#{customerNo}, -->
+<!-- 				#{dueDate}, -->
+<!-- 				#{customerDesc}, -->
+<!-- 				#{salesRecogGubun}, -->
+<!-- 				#{goodsTypeCd}, -->
+<!-- 				#{goodsNm}, -->
+<!-- 				#{abroadGubun}, -->
+<!-- 				#{ordQty}, -->
+<!-- 				#{ordCost}, -->
+<!-- 				#{ordAmt}, -->
+<!-- 				#{prjCd}, -->
+<!-- 				#{prjNm}, -->
+<!-- 				#{regIdx}, -->
+<!-- 				#{regDate}, -->
+<!-- 				#{updIdx}, -->
+<!-- 				#{updDate} -->
+<!-- 			) -->
+<!-- 		} -->
+<!-- 		]]> -->
+<!-- 	</insert> -->
+	
+	<!-- 수주관리 메인 수정 -->
+<!-- 	<update id="bizOrderAdmUpd" statementType="CALLABLE" parameterType="BizOrderVo"> -->
+<!-- 		<![CDATA[ -->
+<!-- 		{ -->
+<!-- 			call sp_bs_bizOrderAdmIUD( -->
+<!-- 				'update', -->
+<!-- 				#{idx}, -->
+<!-- 				#{ordDate}, -->
+<!-- 				#{dealCorpIdx}, -->
+<!-- 				#{bizOrdNo}, -->
+<!-- 				#{bizOrdSeq}, -->
+<!-- 				#{prjSeq}, -->
+<!-- 				#{customerNo}, -->
+<!-- 				#{dueDate}, -->
+<!-- 				#{customerDesc}, -->
+<!-- 				#{salesRecogGubun}, -->
+<!-- 				#{goodsTypeCd}, -->
+<!-- 				#{goodsNm}, -->
+<!-- 				#{abroadGubun}, -->
+<!-- 				#{ordQty}, -->
+<!-- 				#{ordCost}, -->
+<!-- 				#{ordAmt}, -->
+<!-- 				#{prjCd}, -->
+<!-- 				#{prjNm}, -->
+<!-- 				#{regIdx}, -->
+<!-- 				#{regDate}, -->
+<!-- 				#{updIdx}, -->
+<!-- 				#{updDate} -->
+<!-- 			) -->
+<!-- 		} -->
+<!-- 		]]> -->
+<!-- 	</update> -->
+	
+	<!-- 수주관리 메인 삭제 -->
+<!-- 	<delete id="bizOrderAdmDel" statementType="CALLABLE" parameterType="BizOrderVo"> -->
+<!-- 		<![CDATA[ -->
+<!-- 		{ -->
+<!-- 			call sp_bs_bizOrderAdmIUD( -->
+<!-- 				'delete', -->
+<!-- 				#{idx}, -->
+<!-- 				#{ordDate}, -->
+<!-- 				#{dealCorpIdx}, -->
+<!-- 				#{bizOrdNo}, -->
+<!-- 				#{bizOrdSeq}, -->
+<!-- 				#{prjSeq}, -->
+<!-- 				#{customerNo}, -->
+<!-- 				#{dueDate}, -->
+<!-- 				#{customerDesc}, -->
+<!-- 				#{salesRecogGubun}, -->
+<!-- 				#{goodsTypeCd}, -->
+<!-- 				#{goodsNm}, -->
+<!-- 				#{abroadGubun}, -->
+<!-- 				#{ordQty}, -->
+<!-- 				#{ordCost}, -->
+<!-- 				#{ordAmt}, -->
+<!-- 				#{prjCd}, -->
+<!-- 				#{prjNm}, -->
+<!-- 				#{regIdx}, -->
+<!-- 				#{regDate}, -->
+<!-- 				#{updIdx}, -->
+<!-- 				#{updDate} -->
+<!-- 			) -->
+<!-- 		} -->
+<!-- 		]]> -->
+<!-- 	</delete> -->
+	
+	<!-- 수주관리 메인 목형코드 중복확인 -->
+<!-- 	<select id="bizOrderAdmIdDupCheck" resultType="BizOrderVo"> -->
+<!-- 		<![CDATA[ -->
+<!-- 		{ -->
+<!-- 			call sp_bs_bizOrderAdmWdCdDupCheck( -->
+<!-- 				#{idx}, -->
+<!-- 				#{wdCd} -->
+<!-- 			) -->
+<!-- 		} -->
+<!-- 		]]> -->
+<!-- 	</select> -->
+	
+	<!-- 수주 프로젝트 채번 중복 체크 -->
+<!-- 	<select id="prjCdSeq" resultType="BizOrderVo" statementType="CALLABLE" > -->
+<!-- 		<![CDATA[ -->
+<!-- 		{ -->
+<!-- 			call sp_bs_prjCdSeq( -->
+<!-- 				#{prjCd} -->
+<!-- 			) -->
+<!-- 		} -->
+<!-- 		]]> -->
+<!-- 	</select> -->
+	
+</mapper>

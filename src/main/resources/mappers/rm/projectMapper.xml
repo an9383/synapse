@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.rm.projectMapper">
+
+
+	<!-- 프로젝트 마스터 데이터 조회 -->
+	<select id="projectAdmLst" resultType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectAdmLst(
+				#{bizOrdProjectIdx},
+				#{inputGubun},
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 프로젝트 마스터 데이터 등록 -->
+	<insert id="projectAdmIns" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectAdmIUD(
+				'insert',
+				#{idx},
+				#{bizOrdProjectIdx},
+				#{inputGubun},
+				#{version},
+				#{userIdx},
+				#{changeReason},
+				#{projectDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 프로젝트 마스터 데이터 수정 -->
+	<update id="projectAdmUpd" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectAdmIUD(
+				'update',
+				#{idx},
+				#{bizOrdProjectIdx},
+				#{inputGubun},
+				#{version},
+				#{userIdx},
+				#{changeReason},
+				#{projectDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 프로젝트 마스터 데이터 삭제 -->
+	<delete id="projectAdmDel" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectAdmIUD(
+				'delete',
+				#{idx},
+				#{bizOrdProjectIdx},
+				#{inputGubun},
+				#{version},
+				#{userIdx},
+				#{changeReason},
+				#{projectDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	
+	<!-- 프로젝트 디테일 데이터 조회 -->
+	<select id="projectDtlLst" resultType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlLst(
+				#{idx},
+				#{moduleGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 프로젝트 SHEET NAME 조회 -->
+	<select id="projectSheetNameLst" resultType="String">
+		<![CDATA[
+		{
+			call sp_rm_projectSheetNameLst(
+				#{idx}
+			)
+		}
+		]]>
+	</select>	
+	
+	<!-- 프로젝트 디테일 데이터 등록 -->
+	<insert id="projectDtlExcelIns" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlExcelIns(
+				#{fileName}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 프로젝트 디테일 데이터 등록 -->
+	<insert id="projectDtlIns" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlIUD(
+				'insert',
+				#{projectIdx},
+				#{idx},
+				#{insertJson},
+				#{fileName},
+				#{orderGubun},
+				#{positionGubun},
+				#{purchaseGubun},
+				#{partCd},
+				#{partGubun},
+				#{partNm},
+				#{material},
+				#{purpose},
+				#{surfaceTreatment},
+				#{partDc},
+				#{maker},
+				#{needQty},
+				#{inventoryQty},
+				#{supplier},
+				#{remark},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</insert>
+
+	<!-- 프로젝트 디테일 데이터 수정 -->
+	<update id="projectDtlUpd" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlIUD(
+				'update',
+				#{projectIdx},
+				#{idx},
+				#{insertJson},
+				#{fileName},
+				#{orderGubun},
+				#{positionGubun},
+				#{purchaseGubun},
+				#{partCd},
+				#{partGubun},
+				#{partNm},
+				#{material},
+				#{purpose},
+				#{surfaceTreatment},
+				#{partDc},
+				#{maker},
+				#{needQty},
+				#{inventoryQty},
+				#{supplier},
+				#{remark},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 프로젝트 디테일 데이터 삭제 -->
+	<delete id="projectDtlDel" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlIUD(
+				'delete',
+				#{projectIdx},
+				#{idx},
+				#{insertJson},
+				#{fileName},
+				#{orderGubun},
+				#{positionGubun},
+				#{purchaseGubun},
+				#{partCd},
+				#{partGubun},
+				#{partNm},
+				#{material},
+				#{purpose},
+				#{surfaceTreatment},
+				#{partDc},
+				#{maker},
+				#{needQty},
+				#{inventoryQty},
+				#{supplier},
+				#{remark},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+		<!-- 프로젝트 디테일 임시 데이터 조회 -->
+	<select id="projectDtlTempLst" resultType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlTempLst(
+				#{fileName},
+				#{moduleGubun}
+			)
+		}
+		]]>
+	</select>
+	
+		<!-- 프로젝트 디테일 임시 데이터 등록 -->
+	<insert id="projectDtlTempIns" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlTempIUD(
+				'insert',
+				#{insertJson},
+				#{fileName},
+				#{regIdx}
+			)
+		}
+		]]>
+	</insert>
+
+	<!-- 프로젝트 디테일 데이터 임시 삭제 -->
+	<delete id="projectDtlTempDel" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlTempIUD(
+				'delete',
+
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 프로젝트 디테일 주문 등록 -->
+	<insert id="projectDtlOrderIns" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlOrderIUD(
+				'insert',
+				#{insertJson},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{groupIdx},
+				#{idx},
+				#{orderDate},
+				#{orderQty},
+				#{preemptiveQty},
+				#{approvalYn},
+				#{designApprovalYn},
+				#{remark},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</insert>
+
+	<!-- 프로젝트 디테일 주문 수정 -->
+	<update id="projectDtlOrderUpd" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlOrderIUD(
+				'update',
+				#{insertJson},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{groupIdx},
+				#{idx},
+				#{orderDate},
+				#{orderQty},
+				#{preemptiveQty},
+				#{approvalYn},
+				#{designApprovalYn},
+				#{remark},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 프로젝트 디테일 주문 삭제 -->
+	<delete id="projectDtlOrderDel" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlOrderIUD(
+				'delete',
+				#{insertJson},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{groupIdx},
+				#{idx},
+				#{orderDate},
+				#{orderQty},
+				#{preemptiveQty},
+				#{approvalYn},
+				#{designApprovalYn},
+				#{remark},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 프로젝트 디테일 주문 그룹 idx 조회 -->
+	<select id="projectDtlOrderGroupIdx" resultType="String">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlOrderGroupIdx(
+				#{projectIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 프로젝트 구매 현황 조회 -->
+	<select id="projectDtlOrderLst" resultType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlOrderLst(
+				#{projectCd},
+				#{version},
+				#{inputGubun},
+				#{designApprovalYn}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 프로젝트 구매 현황 승인 취소 -->
+	<select id="projectDtlOrderApproval002Upd" resultType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlOrderApproval002Upd(
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{groupIdx},
+				#{idx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 프로젝트별 표준원가 목록조회 -->
+	<select id="projectTotalLst" resultType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectTotalLst(
+				#{startDate},
+				#{endDate},
+				#{inputGubun},
+				#{idx},
+				#{projectCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 프로젝트 파일 데이터 조회 -->
+	<select id="projectFileLst" resultType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectFileLst(
+				#{bizOrdProjectIdx},
+				#{inputGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 프로젝트 파일 등록 -->
+	<insert id="projectFileIns" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectFileIUD(
+				'insert',
+				#{idx},
+				#{bizOrdProjectIdx},
+				#{inputGubun},
+				#{documentNm},
+				#{userIdx},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{fileDesc},
+				#{checkDepartmentCd},
+				#{checkUserIdx},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+		<selectKey resultType="String" keyProperty="idx" order="AFTER">
+			SELECT IDENT_CURRENT('TB_PROJECT_FILE')
+		</selectKey>
+	</insert>
+
+	<!-- 프로젝트 파일 수정 -->
+	<update id="projectFileUpd" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectFileIUD(
+				'update',
+				#{idx},
+				#{bizOrdProjectIdx},
+				#{inputGubun},
+				#{documentNm},
+				#{userIdx},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{fileDesc},
+				#{checkDepartmentCd},
+				#{checkUserIdx},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 프로젝트 파일 삭제 -->
+	<delete id="projectFileDel" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectFileIUD(
+				'delete',
+				#{idx},
+				#{bizOrdProjectIdx},
+				#{inputGubun},
+				#{documentNm},
+				#{userIdx},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{fileDesc},
+				#{checkDepartmentCd},
+				#{checkUserIdx},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 프로젝트 이미지 조회 -->
+	<select id="projectImageLst" resultType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectImageLst(
+				#{projectIdx},
+				#{projectDtlIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 프로젝트 이미지 등록 -->
+	<insert id="projectImageIns" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectImageIUD(
+				'insert',
+				#{idx},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{projectImage},
+				#{projectDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 프로젝트 이미지 수정 -->
+	<insert id="projectImageUpd" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectImageIUD(
+				'update',
+				#{idx},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{projectImage},
+				#{projectDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 프로젝트 이미지 삭제 -->
+	<delete id="projectImageDel" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectImageIUD(
+				'delete',
+				#{idx},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{projectImage},
+				#{projectDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 이미지가 저장된 품번 리스트 조회 -->
+	<select id="projectImagePartNoLst" resultType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectImagePartNoLst(
+				#{projectIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 프로젝트 문서 조회 -->
+	<select id="projectDocumentLst" resultType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDocumentLst(
+				#{projectIdx},
+				#{projectDtlIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 프로젝트 문서 등록 -->
+	<insert id="projectDocumentIns" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDocumentIUD(
+				'insert',
+				#{idx},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{documentNm},
+				#{userIdx},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{documentDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 프로젝트 문서 수정 -->
+	<insert id="projectDocumentUpd" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDocumentIUD(
+				'update',
+				#{idx},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{documentNm},
+				#{userIdx},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{documentDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 프로젝트 문서 삭제 -->
+	<delete id="projectDocumentDel" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDocumentIUD(
+				'delete',
+				#{idx},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{documentNm},
+				#{userIdx},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{documentDesc},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 프로젝트 특이사항 수정 -->
+	<insert id="projectDtlOrderRemarkUpd" statementType="CALLABLE" parameterType="ProjectVo">
+		<![CDATA[
+		{
+			call sp_rm_projectDtlOrderRemarkUpd(
+				#{remark},
+				#{updIdx},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{groupIdx}
+			)
+		}
+		]]>
+	</insert>
+</mapper>

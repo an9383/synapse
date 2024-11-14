@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.sc.purchaseOrderMapper">
+
+	<!-- =========================== 자재구매요청등록 ========================================== -->
+	<!-- 자재구매요청등록 목록조회 -->
+	<select id="purchaseOrderAdmLst" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderAdmLst(
+				#{startDate},
+				#{endDate},
+				#{inputGubun},
+				#{projectCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 자재구매요청등록 요청번호 조회 -->
+	<select id="purchaseOrderAdmGetOrderNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderAdmGetOrderNo()
+		}
+		]]>
+	</select>
+	
+	<!-- 자재구매요청등록  등록 -->
+	<insert id="purchaseOrderAdmIns" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderAdmIUD(
+				'insert',
+				#{orderUserIdx},
+				#{requestDate},
+				#{requestGubun},
+				#{buyReason},
+				#{itemGubunIdx},
+				#{itemGubun1Idx},
+				#{itemGubun2Idx},
+				#{maker},
+				#{itemCd},
+				#{orderQty},
+				#{orderDate},
+				#{projectCd},
+				#{orderDesc},
+				#{status},
+				#{inputGubun},
+				#{version},
+				#{bomGubun},
+				#{bomOrderGubun},
+				#{orderNo},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{groupIdx},
+				#{idx},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 자재구매요청등록 수정 -->
+	<update id="purchaseOrderAdmUpd" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderAdmIUD(
+				'update',
+				#{orderUserIdx},
+				#{requestDate},
+				#{requestGubun},
+				#{buyReason},
+				#{itemGubunIdx},
+				#{itemGubun1Idx},
+				#{itemGubun2Idx},
+				#{maker},
+				#{itemCd},
+				#{orderQty},
+				#{orderDate},
+				#{projectCd},
+				#{orderDesc},
+				#{status},
+				#{inputGubun},
+				#{version},
+				#{bomGubun},
+				#{bomOrderGubun},
+				#{orderNo},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{groupIdx},
+				#{idx},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 자재구매요청등록 삭제 -->
+	<delete id="purchaseOrderAdmDel" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderAdmIUD(
+				'delete',
+				#{orderUserIdx},
+				#{requestDate},
+				#{requestGubun},
+				#{buyReason},
+				#{itemGubunIdx},
+				#{itemGubun1Idx},
+				#{itemGubun2Idx},
+				#{maker},
+				#{itemCd},
+				#{orderQty},
+				#{orderDate},
+				#{projectCd},
+				#{orderDesc},
+				#{status},
+				#{inputGubun},
+				#{version},
+				#{bomGubun},
+				#{bomOrderGubun},
+				#{orderNo},
+				#{projectIdx},
+				#{projectDtlIdx},
+				#{groupIdx},
+				#{idx},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- =========================== 발주관리 ========================================== -->
+	<!-- 발주관리 요청번호별 조회 -->
+	<select id="purchaseOrderAdmOrderNoLst" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderAdmOrderNoLst(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리를 등록할 수 있는 목록조회 -->
+	<select id="purchaseOrderAdmInsertLst" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderAdmInsertLst(
+				#{startDate},
+				#{endDate},
+				#{requestGubun},
+				#{status},
+				#{orderNo},
+				#{projectCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리 요청번호 조회 -->
+	<select id="purchaseOrderDtlGetOrderDtlNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderDtlGetOrderDtlNo()
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리  등록 -->
+	<insert id="purchaseOrderDtlIns" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderDtlIUD(
+				'insert',
+				#{orderNo},
+				#{orderDtlNo},
+				#{orderDtlSeq},
+				#{projectCd},
+				#{deliveryUserIdx},
+				#{itemGubunIdx},
+				#{itemGubun1Idx},
+				#{itemGubun2Idx},
+				#{itemCd},
+				#{orderDtlQty},
+				#{price},
+				#{supplyAmt},
+				#{vat},
+				#{deliveryOrderDate},
+				#{preInDate},
+				#{deliveryPossibleDate},
+				#{dealCorpIdx},
+				#{orderDtlDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 발주관리 수정 -->
+	<update id="purchaseOrderDtlUpd" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderDtlIUD(
+				'update',
+				#{orderNo},
+				#{orderDtlNo},
+				#{orderDtlSeq},
+				#{projectCd},
+				#{deliveryUserIdx},
+				#{itemGubunIdx},
+				#{itemGubun1Idx},
+				#{itemGubun2Idx},
+				#{itemCd},
+				#{orderDtlQty},
+				#{price},
+				#{supplyAmt},
+				#{vat},
+				#{deliveryOrderDate},
+				#{preInDate},
+				#{deliveryPossibleDate},
+				#{dealCorpIdx},
+				#{orderDtlDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 발주관리 삭제 -->
+	<delete id="purchaseOrderDtlDel" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderDtlIUD(
+				'delete',
+				#{orderNo},
+				#{orderDtlNo},
+				#{orderDtlSeq},
+				#{projectCd},
+				#{deliveryUserIdx},
+				#{itemGubunIdx},
+				#{itemGubun1Idx},
+				#{itemGubun2Idx},
+				#{itemCd},
+				#{orderDtlQty},
+				#{price},
+				#{supplyAmt},
+				#{vat},
+				#{deliveryOrderDate},
+				#{preInDate},
+				#{deliveryPossibleDate},
+				#{dealCorpIdx},
+				#{orderDtlDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 발주관리 요청번호 조회 -->
+	<select id="inProdWhsAdmCnt" resultType="int">
+		<![CDATA[
+		{
+			call sp_stock_inProdWhsAdmCnt(
+				#{orderDtlNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주등록 발주종료 -->
+	<update id="completeYnUpd" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_completeYnUpd(
+				#{orderDtlNo},
+				#{completeYn},
+				#{completeDesc},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+		<!-- 발주등록 발주확정/취소 -->
+	<update id="confirmYnUpd" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_confirmYnUpd(
+				#{orderDtlNo},
+				#{confirmYn},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- =========================== 입고관리 ========================================== -->
+	<!-- 입고관리를 등록할 수 있는 목록조회 -->
+	<select id="purchaseOrderDtlInsertLst" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderDtlInsertLst(
+				#{startDate},
+				#{endDate},
+				#{requestGubun},
+				#{status}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 입고등록 요청번호 조회 -->
+	<select id="inProdWhsAdmGetInSlipNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_stock_inProdWhsAdmGetInSlipNo()
+		}
+		]]>
+	</select>
+	
+	<!-- 입고등록 -->
+	<insert id="inProdWhsAdmIns" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_stock_inProdWhsAdmIUD(
+				'insert',
+				#{inSlipNo},
+				#{itemCd},
+				#{price},
+				#{inQty},
+				#{inDate},
+				#{dealCorpIdx},
+				#{orderDtlNo},
+				#{whsIdx},
+				#{inUserIdx},
+				#{inDesc},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- =========================== 자재사용등록 ========================================== -->
+	<!-- 자재사용등록 목록조회 -->
+	<select id="outProdLst" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_outProdLst(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 자재사용등록 상세조회 -->
+	<select id="outProdSel" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_outProdSel(
+				#{outSlipNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 자재사용등록 사용번호 조회 -->
+	<select id="outProdWhsAdmGetOutSlipNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_stock_outProdWhsAdmGetOutSlipNo()
+		}
+		]]>
+	</select>
+	
+	<!-- 자재사용등록 -->
+	<insert id="outProdWhsAdmIns" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_stock_outProdWhsAdmIUD(
+				'insert',
+				#{outSlipNo},
+				#{outDepartment},
+				#{outUserIdx},
+				#{prjCd},
+				#{itemCd},
+				#{outQty},
+				#{outDate},
+				#{outDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 자재사용등록 수정 -->
+	<update id="outProdWhsAdmUpd" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_stock_outProdWhsAdmIUD(
+				'update',
+				#{outSlipNo},
+				#{outDepartment},
+				#{outUserIdx},
+				#{prjCd},
+				#{itemCd},
+				#{outQty},
+				#{outDate},
+				#{outDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- =========================== 통합발주관리대장 ========================================== -->
+	<!-- 통합발주관리대장 목록조회 -->
+	<select id="totalPurchaseOrderLst" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_totalPurchaseOrderLst(
+				#{startDate},
+				#{endDate},
+				#{inOutGubun},
+				#{requestGubun},
+				#{upvoteYn}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- =========================== 발주서 출력 ========================================== -->
+	<!-- 발주서출력 좌측조회 -->
+	<select id="purchaseOrderPrintUpvoteLst" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderPrintUpvoteLst(
+				#{startDate},
+				#{endDate},
+				#{status}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주서출력 목록조회 -->
+	<select id="purchaseOrderPrintLst" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseOrderPrintLst(
+				#{startDate},
+				#{endDate},
+				#{status},
+				#{orderDtlNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주서 출력번호 및 출력여부 수정 -->
+	<update id="purchasePaperUpd" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchasePaperUpd(
+				#{updDtlNo},
+				#{printYn},
+				#{printDate}
+			)
+		}
+		]]>
+	</update>
+	
+
+	<!-- =========================== 개별발주 리스트 ========================================== -->
+	<!-- 개별발주 목록조회 -->
+	<select id="purchaseIndividualLst" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_sc_purchaseIndividualLst(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+</mapper>

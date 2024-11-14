@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.stock.stockSummaryAdmMapper">
+
+	<!-- 재고 현황 목록 -->
+	<select id="stockSummaryAdmLst" resultType="StockSummaryAdmVo">
+	<![CDATA[
+	{
+		call sp_stock_stockSummaryAdmLst(
+		
+		)
+	}
+	]]>
+	</select>
+
+
+	<!-- 재고 등록 -->
+	<insert id="stockSummaryAdmIUD" statementType="CALLABLE" parameterType="StockSummaryAdmVo">
+	<![CDATA[
+	{
+		call sp_stock_stockSummaryAdmIUD(
+			'insert',
+			#{ssItemIdx},
+			#{ssWhsGubun},
+			#{ssWhsIdx},
+			#{ssLocIdx},
+			#{ssQty},
+			#{ssEtc1},
+			#{ssEtc2},
+			#{ssEtc3},
+			#{regIdx}
+		)
+	}
+	]]>
+	</insert>
+
+	
+</mapper>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bm.goodsTypeAdmMapper">
+	
+	<!-- 제품유형별 목록조회 -->
+	<select id="GoodsTypeAdmLst" resultType="GoodsTypeAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_GoodsTypeAdmLst(
+				#{useYn}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 제품유형별 상세조회 -->
+	<select id="GoodsTypeAdmSel" resultType="GoodsTypeAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_GoodsTypeAdmSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 제품유형별 등록 -->
+	<insert id="GoodsTypeAdmIns" parameterType="GoodsTypeAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_GoodsTypeAdmIUD(
+				'insert',
+				#{idx},
+				#{goodsGubun},
+				#{goodsTypeCd},
+				#{goodsTypeNm},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 제품유형별 수정 -->
+	<update id="GoodsTypeAdmUpd" parameterType="GoodsTypeAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_GoodsTypeAdmIUD(
+				'update',
+				#{idx},
+				#{goodsGubun},
+				#{goodsTypeCd},
+				#{goodsTypeNm},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 제품유형별 삭제 -->
+	<delete id="GoodsTypeAdmDel" parameterType="GoodsTypeAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_GoodsTypeAdmIUD(
+				'delete',
+				#{idx},
+				#{goodsGubun},
+				#{goodsTypeCd},
+				#{goodsTypeNm},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 제품유형별 코드 중복 체크 -->
+	<select id="GoodsTypeCdCheck" resultType="GoodsTypeAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_GoodsTypeCdCheck(
+				#{idx},
+				#{goodsGubun},
+				#{goodsTypeCd}
+			)
+		}
+		]]>
+	</select>
+	
+		<!-- 제품유형별 목록조회 -->
+	<select id="GoodsTypeDtlLst" resultType="GoodsTypeAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_GoodsTypeDtlLst(
+				#{goodsTypeCd},
+				#{useYn}
+			)
+		}
+		]]>
+	</select>
+	
+		<!-- 제품유형별 등록 -->
+	<insert id="GoodsTypeDtlIns" parameterType="GoodsTypeAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_GoodsTypeDtlIUD(
+				'insert',
+				#{idx},
+				#{goodsTypeCd},
+				#{goodsNm},
+				#{goodsDesc},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 제품유형별 수정 -->
+	<update id="GoodsTypeDtlUpd" parameterType="GoodsTypeAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_GoodsTypeDtlIUD(
+				'update',
+				#{idx},
+				#{goodsTypeCd},
+				#{goodsNm},
+				#{goodsDesc},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 제품유형별 삭제 -->
+	<delete id="GoodsTypeDtlDel" parameterType="GoodsTypeAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_GoodsTypeDtlIUD(
+				'delete',
+				#{idx},
+				#{goodsTypeCd},
+				#{goodsNm},
+				#{goodsDesc},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 제품유형별 코드 중복 체크 -->
+	<select id="GoodsNmCheck" resultType="GoodsTypeAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_GoodsNmCheck(
+				#{idx},
+				#{goodsTypeCd},
+				#{goodsNm}
+			)
+		}
+		]]>
+	</select>
+</mapper>

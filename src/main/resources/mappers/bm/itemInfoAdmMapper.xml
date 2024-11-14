@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bm.itemInfoAdmMapper">
+	
+	
+	<!-- 품목정보관리 전체조회 -->
+	<select id="itemInfoAdmLst" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAdmLst(
+				#{individualYn},
+				#{itemGubunIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<select id="itemInfoAdmSel" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAdmSel(
+				#{itemCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<insert id="itemInfoAdmIns" statementType="CALLABLE" parameterType="mes.domain.bm.ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAdmIUD(
+				'insert',
+				#{itemCd},
+				#{itemNm},
+				#{erpCd},
+				#{maker},
+				#{itemDc},
+				#{unitDc},
+				#{dealCorpCd},
+				#{itemGubunIdx},
+				#{itemGubun},
+				#{itemGubun1Idx},
+				#{itemGubun1},
+				#{itemGubun2Idx},
+				#{itemGubun2},
+				#{individualYn},
+				#{safetyStock},
+				#{unitPrice},
+				#{useYn},
+				#{itemDesc},
+				#{inspectYn},
+				#{itemImage},
+				#{itemImage2},
+				#{itemImage3},
+				#{stockUpdateJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+
+	<update id="itemInfoAdmUpd" statementType="CALLABLE" parameterType="mes.domain.bm.ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAdmIUD(
+				'update',
+				#{itemCd},
+				#{itemNm},
+				#{erpCd},
+				#{maker},
+				#{itemDc},
+				#{unitDc},
+				#{dealCorpCd},
+				#{itemGubunIdx},
+				#{itemGubun},
+				#{itemGubun1Idx},
+				#{itemGubun1},
+				#{itemGubun2Idx},
+				#{itemGubun2},
+				#{individualYn},
+				#{safetyStock},
+				#{unitPrice},
+				#{useYn},
+				#{itemDesc},
+				#{inspectYn},
+				#{itemImage},
+				#{itemImage2},
+				#{itemImage3},
+				#{stockUpdateJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<update id="itemInfoAdmStockUpd" statementType="CALLABLE" parameterType="mes.domain.bm.ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAdmIUD(
+				'stockUpdate',
+				#{itemCd},
+				#{itemNm},
+				#{erpCd},
+				#{maker},
+				#{itemDc},
+				#{unitDc},
+				#{dealCorpCd},
+				#{itemGubunIdx},
+				#{itemGubun},
+				#{itemGubun1Idx},
+				#{itemGubun1},
+				#{itemGubun2Idx},
+				#{itemGubun2},
+				#{individualYn},
+				#{safetyStock},
+				#{unitPrice},
+				#{useYn},
+				#{itemDesc},
+				#{inspectYn},
+				#{itemImage},
+				#{itemImage2},
+				#{itemImage3},
+				#{stockUpdateJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<select id="itemInfoAdmGetCd" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAdmGetCd(
+				#{itemCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- ================================== ERP 연동 ====================================== -->
+	
+	<select id="itemInspAdmList" resultType="ItemInfoAdmVo">
+		SELECT
+				ITEM_CD,
+				ITEM_NM,
+				ACCT_FG,
+				(
+					CASE ACCT_FG
+					WHEN 0 THEN '원재료'
+					WHEN 1 THEN '부재료'
+					WHEN 2 THEN '제품'
+					WHEN 4 THEN '반제품'
+					WHEN 5 THEN '상품'
+					WHEN 6 THEN '저장품' 
+					ELSE ''
+					END
+				) ACCT_FG_NM,
+				QC_FG,
+				(
+					CASE QC_FG 
+					WHEN 0 THEN '무검사'
+					WHEN 1 THEN '검사'
+					ELSE ''
+					END
+				) QC_FG_NM,
+				ITEM_DC,
+				(SELECT COUNT(ITEM_CONNECT) FROM TB_INSP_ITEM_DTL IID WHERE IID.ITEM_CONNECT = A.ITEM_CD AND IID.INSP_CD = #{inspCd}) ITEM_CONNECT_YN
+		FROM TB_ITEM_INFO_ADM A
+		WHERE 1=1
+		AND (ACCT_FG = 2 OR ACCT_FG = 4)
+		<if test="itemCd!=null and !itemCd.equals('')">
+			AND A.ITEMGRP_CD = #{itemCd}
+		</if>
+		<if test="connectCheck!=null and connectCheck.equals('001')">
+			AND	(SELECT COUNT(ITEM_CONNECT) FROM TB_INSP_ITEM_DTL IID WHERE IID.ITEM_CONNECT = A.ITEM_CD AND IID.INSP_CD = #{inspCd})>0
+		</if>
+		<if test="connectCheck!=null and connectCheck.equals('002')">
+			AND	(SELECT COUNT(ITEM_CONNECT) FROM TB_INSP_ITEM_DTL IID WHERE IID.ITEM_CONNECT = A.ITEM_CD AND IID.INSP_CD = #{inspCd})=0
+		</if>
+	</select>
+	
+	
+	<!-- ================================= 품목구분등록 ====================================== -->
+	<!-- 품목구분 목록조회 -->
+	<select id="itemGubunLmsAdmLst" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemGubunLmsAdmLst(
+				#{lmsType},
+				#{largeIdx},
+				#{mediumIdx}
+			)
+		}
+		]]>
+	</select>
+	
+		<!-- 품목구분 등록 -->
+	<insert id="itemGubunLmsAdmIns" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemGubunLmsAdmIUD(
+				'insert',
+				#{idx},
+				#{lmsType},
+				#{itemGubun},
+				#{itemGubunNm},
+				#{largeIdx},
+				#{itemGubun1},
+				#{itemGubun1Nm},
+				#{mediumIdx},
+				#{itemGubun2},
+				#{itemGubun2Nm},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 품목구분 수정 -->
+	<update id="itemGubunLmsAdmUpd" parameterType="ItemInfoAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_itemGubunLmsAdmIUD(
+				'update',
+				#{idx},
+				#{lmsType},
+				#{itemGubun},
+				#{itemGubunNm},
+				#{largeIdx},
+				#{itemGubun1},
+				#{itemGubun1Nm},
+				#{mediumIdx},
+				#{itemGubun2},
+				#{itemGubun2Nm},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 품목구분 삭제 -->
+	<delete id="itemGubunLmsAdmDel" parameterType="ItemInfoAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_itemGubunLmsAdmIUD(
+				'delete',
+				#{idx},
+				#{lmsType},
+				#{itemGubun},
+				#{itemGubunNm},
+				#{largeIdx},
+				#{itemGubun1},
+				#{itemGubun1Nm},
+				#{mediumIdx},
+				#{itemGubun2},
+				#{itemGubun2Nm},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 품목구분 중복 체크 -->
+	<select id="itemGubunLmsAdmCheck" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemGubunLmsAdmCheck(
+				#{idx},
+				#{largeIdx},
+				#{mediumIdx},
+				#{lmsType},
+				#{itemGubun},
+				#{itemGubun1},
+				#{itemGubun2}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- ******************************입고단가등록****************************** -->
+	
+	<!-- 입고단가등록 조회 -->
+	<select id="itemCostLst" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemCostLst(
+				#{itemCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 입고단가등록 등록 -->
+	<insert id="itemCostIns" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemCostIUD(
+				'insert',
+				#{idx},
+				#{orderDtlNo},
+				#{itemCd},
+				#{costDate},
+				#{dealCorpCd},
+				#{cost},
+				#{costUnit},
+				#{costDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 입고단가등록 수정 -->
+	<update id="itemCostUpd" parameterType="ItemInfoAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_itemCostIUD(
+				'update',
+				#{idx},
+				#{orderDtlNo},
+				#{itemCd},
+				#{costDate},
+				#{dealCorpCd},
+				#{cost},
+				#{costUnit},
+				#{costDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 입고단가등록 삭제 -->
+	<delete id="itemCostDel" parameterType="ItemInfoAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_itemCostIUD(
+				'delete',
+				#{idx},
+				#{orderDtlNo},
+				#{itemCd},
+				#{costDate},
+				#{dealCorpCd},
+				#{cost},
+				#{costUnit},
+				#{costDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+
+	
+	<!-- 입고단가만 수정 -->
+	<update id="itemOnlyCostUpd" parameterType="ItemInfoAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_itemOnlyCostIUD(
+				#{orderDtlNo},
+				#{cost},
+				#{preInDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<package name="mes.domain.sm"/>
+		<package name="mes.domain.bm"/>
+		<package name="mes.domain.bs"/>
+		<package name="mes.domain.em"/>
+		<package name="mes.domain.pm"/>
+		<package name="mes.domain.stock"/>
+		<package name="mes.domain.wm"/>
+		<package name="mes.domain.qm"/>
+		<package name="mes.domain.mt"/>
+		<package name="mes.domain.rm"/>
+		<package name="mes.domain.tm"/>
+		<package name="mes.domain.ts"/>
+		<package name="mes.domain.mm"/>
+		<package name="mes.domain.sc"/>
+	</typeAliases>
+</configuration>

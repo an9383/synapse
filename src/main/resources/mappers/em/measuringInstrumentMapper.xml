@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.em.measuringInstrumentMapper">
+
+	<!-- 계측기관리 목록조회 -->
+	<select id="measuringInstrumentList" resultType="MeasuringInstrumentVo">
+		<![CDATA[
+		{
+			call sp_em_measuringInstrumentList(
+			)
+		}
+		]]>
+	</select>
+
+	<!-- 계측기관리 등록 -->
+	<insert id="measuringInstrumentIns" parameterType="MeasuringInstrumentVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_em_measuringInstrumentIUD(
+				'insert',
+				#{idx},
+				#{managementNumber},
+				#{existingManagementNumber},
+				#{measuringInstrumentName},
+				#{modelName},
+				#{specification},
+				#{deviceUniqueNumber},
+				#{registrationDate},
+				#{departmentInUse},
+				#{manufacturerCountry},
+				#{orderNumber},
+				#{purchasePrice},
+				#{calibrationCycle},
+				#{calibrationDate},
+				#{calibrationNumber},
+				#{disposeDate},
+				#{calibrationOrganization},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{deleteList}
+			)
+		}
+		]]>
+		<selectKey resultType="String" keyProperty="idx" order="AFTER">
+			SELECT IDENT_CURRENT('TB_MEASURING_INSTRUMENT')
+		</selectKey>
+	</insert>
+	
+	<!-- 계측기관리 수정 -->
+	<update id="measuringInstrumentUpd" parameterType="MeasuringInstrumentVo">
+		<![CDATA[
+		{
+			call sp_em_measuringInstrumentIUD(
+				'update',
+				#{idx},
+				#{managementNumber},
+				#{existingManagementNumber},
+				#{measuringInstrumentName},
+				#{modelName},
+				#{specification},
+				#{deviceUniqueNumber},
+				#{registrationDate},
+				#{departmentInUse},
+				#{manufacturerCountry},
+				#{orderNumber},
+				#{purchasePrice},
+				#{calibrationCycle},
+				#{calibrationDate},
+				#{calibrationNumber},
+				#{disposeDate},
+				#{calibrationOrganization},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{deleteList}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 계측기관리 삭제 -->
+	<delete id="measuringInstrumentDel" parameterType="MeasuringInstrumentVo">
+		<![CDATA[
+		{
+			call sp_em_measuringInstrumentIUD(
+				'delete',
+				#{idx},
+				#{managementNumber},
+				#{existingManagementNumber},
+				#{measuringInstrumentName},
+				#{modelName},
+				#{specification},
+				#{deviceUniqueNumber},
+				#{registrationDate},
+				#{departmentInUse},
+				#{manufacturerCountry},
+				#{orderNumber},
+				#{purchasePrice},
+				#{calibrationCycle},
+				#{calibrationDate},
+				#{calibrationNumber},
+				#{disposeDate},
+				#{calibrationOrganization},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{deleteList}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 계측기관리 파일 목록조회 -->
+	<select id="measuringInstrumentFileList" resultType="MeasuringInstrumentVo">
+		<![CDATA[
+		{
+			call sp_em_measuringInstrumentFileList(
+				#{measuringInstrumentIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 계측기관리 파일 등록 -->
+	<insert id="measuringInstrumentFileIns" parameterType="MeasuringInstrumentVo">
+		<![CDATA[
+		{
+			call sp_em_measuringInstrumentFileIUD(
+				'insert',
+				#{idx},
+				#{insertList}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 계측기관리 파일 삭제 -->
+	<delete id="measuringInstrumentFileDel" parameterType="MeasuringInstrumentVo">
+		<![CDATA[
+		{
+			call sp_em_measuringInstrumentFileIUD(
+				'delete',
+				#{idx},
+				#{insertList}
+			)
+		}
+		]]>
+	</delete>
+</mapper>

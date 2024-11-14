@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bs.quotationMapper">
+
+	<select id="quotationLst" resultType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationLst(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<insert id="quotationIns" statementType="CALLABLE" parameterType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationIUD(
+				'insert',
+				#{idx},
+				#{reqNo},
+				#{reqType},
+				#{reqTitle},
+				#{reqOrder},
+				#{reqDate},
+				#{deadLine},
+				#{submitDate},
+				#{expirationDate},
+				#{costUnit},
+				#{bidding},
+				#{partialBidYn},
+				#{incoterms},
+				#{unitPriceAgreementYn},
+				#{buyerDesc},
+				#{dealCorpCd},
+				#{dealCorpNm},
+				#{purchaseType},
+				#{purchaseChargr},
+				#{phoneNumber},
+				#{chargrEmail},
+				#{rfxMethod},
+				#{selectionMethod},
+				#{quotationMethod},
+				#{quotationNo},
+				#{changeConditionsYn},
+				#{orderGubun},
+				#{dealCorpDesc},
+				#{note},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<update id="quotationUpd" statementType="CALLABLE" parameterType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationIUD(
+				'update',
+				#{idx},
+				#{reqNo},
+				#{reqType},
+				#{reqTitle},
+				#{reqOrder},
+				#{reqDate},
+				#{deadLine},
+				#{submitDate},
+				#{expirationDate},
+				#{costUnit},
+				#{bidding},
+				#{partialBidYn},
+				#{incoterms},
+				#{unitPriceAgreementYn},
+				#{buyerDesc},
+				#{dealCorpCd},
+				#{dealCorpNm},
+				#{purchaseType},
+				#{purchaseChargr},
+				#{phoneNumber},
+				#{chargrEmail},
+				#{rfxMethod},
+				#{selectionMethod},
+				#{quotationMethod},
+				#{quotationNo},
+				#{changeConditionsYn},
+				#{orderGubun},
+				#{dealCorpDesc},
+				#{note},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<delete id="quotationDel" statementType="CALLABLE" parameterType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationIUD(
+				'delete',
+				#{idx},
+				#{reqNo},
+				#{reqType},
+				#{reqTitle},
+				#{reqOrder},
+				#{reqDate},
+				#{deadLine},
+				#{submitDate},
+				#{expirationDate},
+				#{costUnit},
+				#{bidding},
+				#{partialBidYn},
+				#{incoterms},
+				#{unitPriceAgreementYn},
+				#{buyerDesc},
+				#{dealCorpCd},
+				#{dealCorpNm},
+				#{purchaseType},
+				#{purchaseChargr},
+				#{phoneNumber},
+				#{chargrEmail},
+				#{rfxMethod},
+				#{selectionMethod},
+				#{quotationMethod},
+				#{quotationNo},
+				#{changeConditionsYn},
+				#{orderGubun},
+				#{dealCorpDesc},
+				#{note},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<select id="quotationInfoLst" resultType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationInfoLst(
+				#{reqNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<insert id="quotationInfoIns" statementType="CALLABLE" parameterType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationInfoIUD(
+				'insert',
+				#{idx},
+				#{reqNo},
+				#{itemType},
+				#{itemNm},
+				#{produceUnit},
+				#{quotationQty},
+				#{unitPrice},
+				#{quotationPrice},
+				#{leadTime},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<update id="quotationInfoUpd" statementType="CALLABLE" parameterType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationInfoIUD(
+				'update',
+				#{idx},
+				#{reqNo},
+				#{itemType},
+				#{itemNm},
+				#{produceUnit},
+				#{quotationQty},
+				#{unitPrice},
+				#{quotationPrice},
+				#{leadTime},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<delete id="quotationInfoDel" statementType="CALLABLE" parameterType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationInfoIUD(
+				'delete',
+				#{idx},
+				#{reqNo},
+				#{itemType},
+				#{itemNm},
+				#{produceUnit},
+				#{quotationQty},
+				#{unitPrice},
+				#{quotationPrice},
+				#{leadTime},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<select id="quotationFileLst" resultType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationFileLst(
+				#{infoIdx},
+				#{inputGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<insert id="quotationFileIns" statementType="CALLABLE" parameterType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationFileIUD(
+				'insert',
+				#{idx},
+				#{infoIdx},
+				#{reqNo},
+				#{inputGubun},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{fileSize},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</insert>
+	
+	<update id="quotationFileUpd" statementType="CALLABLE" parameterType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationFileIUD(
+				'update',
+				#{idx},
+				#{infoIdx},
+				#{reqNo},
+				#{inputGubun},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{fileSize},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</update>
+	
+	<delete id="quotationFileDel" statementType="CALLABLE" parameterType="QuotationVo">
+		<![CDATA[
+		{
+			call sp_bs_quotationFileIUD(
+				'delete',
+				#{idx},
+				#{infoIdx},
+				#{reqNo},
+				#{inputGubun},
+				#{uuid},
+				#{fileName},
+				#{fileExt},
+				#{fileSize},
+				#{regIdx},
+				#{updIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<select id="getReqNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_bs_quotationGetReqNo()
+		}
+		]]>
+	</select>
+</mapper>

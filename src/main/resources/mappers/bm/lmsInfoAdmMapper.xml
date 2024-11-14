@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bm.lmsInfoAdmMapper">
+	
+	<!-- 대중소분류정보 목록조회 -->
+	<select id="lmsInfoAdmLst" resultType="LmsInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_lmsInfoAdmLst(
+				#{lmsType},
+				#{largeIdx},
+				#{mediumIdx},
+				#{lmsCategory}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 대중소분류정보 상세조회 -->
+	<select id="lmsInfoAdmSel" resultType="LmsInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_lmsInfoAdmSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 대중소분류정보 등록 -->
+	<insert id="lmsInfoAdmIns" parameterType="LmsInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_lmsInfoAdmIUD(
+				'insert',
+				#{idx},
+				#{lmsCategory},
+				#{lmsType},
+				#{largeCd},
+				#{largeNm},
+				#{largeIdx},
+				#{mediumCd},
+				#{mediumNm},
+				#{mediumIdx},
+				#{smallCd},
+				#{smallNm},
+				#{judgeGubun},
+				#{contents},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 대중소분류정보 수정 -->
+	<update id="lmsInfoAdmUpd" parameterType="LmsInfoAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_lmsInfoAdmIUD(
+				'update',
+				#{idx},
+				#{lmsCategory},
+				#{lmsType},
+				#{largeCd},
+				#{largeNm},
+				#{largeIdx},
+				#{mediumCd},
+				#{mediumNm},
+				#{mediumIdx},
+				#{smallCd},
+				#{smallNm},
+				#{judgeGubun},
+				#{contents},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 대중소분류정보 삭제 -->
+	<delete id="lmsInfoAdmDel" parameterType="LmsInfoAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_lmsInfoAdmIUD(
+				'delete',
+				#{idx},
+				#{lmsCategory},
+				#{lmsType},
+				#{largeCd},
+				#{largeNm},
+				#{largeIdx},
+				#{mediumCd},
+				#{mediumNm},
+				#{mediumIdx},
+				#{smallCd},
+				#{smallNm},
+				#{judgeGubun},
+				#{contents},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 대중소분류 코드 중복 체크 -->
+	<select id="lmsInfoCdCheck" resultType="LmsInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_lmsInfoCdCheck(
+				#{idx},
+				#{largeIdx},
+				#{mediumIdx},
+				#{lmsType},
+				#{largeCd},
+				#{mediumCd},
+				#{smallCd}
+			)
+		}
+		]]>
+	</select>
+	
+	
+	<!-- 프로젝트 채번기준 목록조회 -->
+	<select id="projectNumberLst" resultType="LmsInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_projectNumberLst(
+				#{prjNumberGubun},
+				#{selYear},
+				#{gubunIdx}
+			)
+		}
+		]]>
+	</select>
+	
+		<!-- 프로젝트 채번기준 중복 체크 -->
+	<select id="projectNumberCheck" resultType="LmsInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_projectNumberCheck(
+				#{idx},
+				#{prjNumberGubun},
+				#{gubunCd}
+			)
+		}
+		]]>
+	</select>
+	
+		<!-- 프로젝트 채번기준 등록 -->
+	<insert id="projectNumberIns" parameterType="LmsInfoAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_projectNumberIUD(
+				'insert',
+				#{idx},
+				#{prjNumberGubun},
+				#{gubunIdx},
+				#{gubunCd},
+				#{gubunNm},
+				#{gubunDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 프로젝트 채번기준 수정 -->
+	<update id="projectNumberUpd" parameterType="LmsInfoAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_projectNumberIUD(
+				'update',
+				#{idx},
+				#{prjNumberGubun},
+				#{gubunIdx},
+				#{gubunCd},
+				#{gubunNm},
+				#{gubunDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 프로젝트 채번기준 삭제 -->
+	<delete id="projectNumberDel" parameterType="LmsInfoAdmVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bm_projectNumberIUD(
+				'delete',
+				#{idx},
+				#{prjNumberGubun},
+				#{gubunIdx},
+				#{gubunCd},
+				#{gubunNm},
+				#{gubunDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+</mapper>

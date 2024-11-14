@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.em.moldMapper">
+
+	<!-- 금형관리 목록조회 -->
+	<select id="moldList" resultType="MoldVo">
+		<![CDATA[
+		{
+			call sp_em_moldList(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 금형관리 등록 -->
+	<insert id="moldIns" parameterType="MoldVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_em_moldIUD(
+				'insert',
+				#{idx},
+				#{managementType},
+				#{selfManagementNumber},
+				#{moldType},
+				#{companyManagementNumber},
+				#{material},
+				#{moldStorageLocation},
+				#{itemNumber},
+				#{itemName},
+				#{specification},
+				#{unit},
+				#{quantity},
+				#{unitPrice},
+				#{amount},
+				#{orderDate},
+				#{receiptDate},
+				#{vendor},
+				#{orderNumber},
+				#{projectCode},
+				#{projectName},
+				#{disposeDate},
+				#{useYn},
+				#{moldDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{deleteList}
+			)
+		}
+		]]>
+		<selectKey resultType="String" keyProperty="idx" order="AFTER">
+			SELECT IDENT_CURRENT('TB_MOLD')
+		</selectKey>
+	</insert>
+	
+	<!-- 금형관리 수정 -->
+	<update id="moldUpd" parameterType="MoldVo">
+		<![CDATA[
+		{
+			call sp_em_moldIUD(
+				'update',
+				#{idx},
+				#{managementType},
+				#{selfManagementNumber},
+				#{moldType},
+				#{companyManagementNumber},
+				#{material},
+				#{moldStorageLocation},
+				#{itemNumber},
+				#{itemName},
+				#{specification},
+				#{unit},
+				#{quantity},
+				#{unitPrice},
+				#{amount},
+				#{orderDate},
+				#{receiptDate},
+				#{vendor},
+				#{orderNumber},
+				#{projectCode},
+				#{projectName},
+				#{disposeDate},
+				#{useYn},
+				#{moldDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{deleteList}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 금형관리 삭제 -->
+	<delete id="moldDel" parameterType="MoldVo">
+		<![CDATA[
+		{
+			call sp_em_moldIUD(
+				'delete',
+				#{idx},
+				#{managementType},
+				#{selfManagementNumber},
+				#{moldType},
+				#{companyManagementNumber},
+				#{material},
+				#{moldStorageLocation},
+				#{itemNumber},
+				#{itemName},
+				#{specification},
+				#{unit},
+				#{quantity},
+				#{unitPrice},
+				#{amount},
+				#{orderDate},
+				#{receiptDate},
+				#{vendor},
+				#{orderNumber},
+				#{projectCode},
+				#{projectName},
+				#{disposeDate},
+				#{useYn},
+				#{moldDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{deleteList}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 금형관리 프로젝트 목록조회 -->
+	<select id="moldProjectList" resultType="MoldVo">
+		<![CDATA[
+		{
+			call sp_em_moldProjectList(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 금형관리 파일 목록조회 -->
+	<select id="moldFileList" resultType="MoldVo">
+		<![CDATA[
+		{
+			call sp_em_moldFileList(
+				#{moldIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 금형관리 파일 등록 -->
+	<insert id="moldFileIns" parameterType="MoldVo">
+		<![CDATA[
+		{
+			call sp_em_moldFileIUD(
+				'insert',
+				#{idx},
+				#{insertList}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 금형관리 파일 삭제 -->
+	<delete id="moldFileDel" parameterType="MoldVo">
+		<![CDATA[
+		{
+			call sp_em_moldFileIUD(
+				'delete',
+				#{idx},
+				#{insertList}
+			)
+		}
+		]]>
+	</delete>
+</mapper>
