@@ -59,6 +59,15 @@ public class InventoryMoveController {
 		return mav;
 	}
 	
+	// wmsc0100
+	@RequestMapping(value = "/tm/tmsc0090", method = RequestMethod.GET)
+	public ModelAndView tmsc0090(ModelAndView mav, HttpServletRequest request) {
+		logger.info("page : /tm/tmsc0090");
+		mav.setViewName("/tm/tmsc0090");
+		return mav;
+	}
+	
+	
 	//재고이동 목록조회
 	@RequestMapping(value = "tm/inventoryMoveAdmLst", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> inventoryMoveAdmLst(InventoryMoveVo inventoryMoveVo) throws Exception {

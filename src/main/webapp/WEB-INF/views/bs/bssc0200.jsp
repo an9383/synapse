@@ -48,7 +48,7 @@
 					<thead class="table-light">
 						<tr>
 							<th class="text-center align-middle">
-								<input class="form-check-input" type="checkbox" id="allCheckBox" style="margin: 0px; width: 25px; height: 25px;">
+<!-- 								<input class="form-check-input" type="checkbox" id="allCheckBox" style="margin: 0px; width: 25px; height: 25px;"> -->
 							</th>
 							<th class="text-center align-middle">프로젝트 번호</th>
 							<th class="text-center align-middle">Customer</th>
@@ -89,6 +89,7 @@
 					<thead class="table-light">
 						<tr>
 							<th class="text-center align-middle">Serial No.</th>
+							<th class="text-center align-middle">고객사 Serial No.</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -100,6 +101,109 @@
 	</div>
 </div>
 <!-- Serial No 끝 -->
+<!-- 프로젝트 채번 모달 -->
+<div class="modal fade" id="getSerialNoModal" tabindex="-1"
+	aria-hidden="true" style="z-index: 9999;">
+	<div class="modal-dialog" style="max-width: 80vw;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="serialNoModalTitle">Serial No. 채번</h5>
+				<div class="btn-group" role="group" aria-label="Small button group">
+					<button type="button" class="btn btn-outline-light w-auto"
+						style="font-size: 20px !important;" id="btnSerialNoModalPaste">
+						<i class="fa-regular fa-paste"></i>
+					</button>
+					<button type="button" class="btn btn-outline-light w-auto"
+						style="font-size: 20px !important;" data-bs-dismiss="modal"
+						aria-label="Close">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+				</div>
+			</div>
+			<div class="row modal-body-top text-center mt-2" style="justify-content:center;">
+				<span id="serialNoMake" style="font-size:40px;height:6vh;">S-<span id="projectCdSerial">___________</span>-<span id="customerCd">__</span>-__</span>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div id="leftcol" style="width:25%;">
+						<div class="container-fluid h-100" style="padding: 3px;">
+							<div class="row">
+								<table class="table table-bordered p-0 m-0" id="CustomerCodeTable" style="width:100%;">
+									<thead class="table-light">
+										<tr>
+											<th colspan="2" class="text-center">Company Code(①)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-center">Synaspseimaging</td>
+											<td class="text-center">S</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div id="centercol" style="width:25%;">
+						<div class="container-fluid h-100" style="padding: 3px;">
+							<div class="row">
+								<table class="table table-bordered p-0 m-0" id="projectCodeTable" style="width:100%;">
+									<thead class="table-light">
+										<tr>
+											<th colspan="3" class="text-center">Project Code(②)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-center">프로젝트 코드</td>
+											<td class="text-center" id="tdProjectCode"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div id="rightcol" style="width:25%;">
+						<div class="container-fluid h-100" style="padding: 3px;">
+							<div class="row">
+								<table class="table table-bordered p-0 m-0" id="dealCorpInitialTable" style="width:100%;">
+									<colgroup>
+										<col width="80%">
+										<col width="20%">
+									</colgroup>
+									<thead class="table-light">
+										<tr>
+											<th colspan="3" class="text-center">Customer Code(③)</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div id="leftcolM" style="width:25%;">
+						<div class="container-fluid h-100" style="padding: 3px;">
+							<div class="row">
+								<table class="table table-bordered p-0 m-0" id="prdListTable" style="width:100%;">
+									<thead class="table-light">
+										<tr>
+											<th colspan="3" class="text-center">Serial No(④)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td rowspan="2" class="text-center"><b>01 ~ 99</b><br>동일 PJT 내 호기 일련번호</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 프로젝트 채번 모달 끝 -->
 <!-- 화면설정 script -->
 <script>
 	let isDraggingV = false;
@@ -452,7 +556,11 @@
 			html += '<tr>';
 			if(serialData[i] != null){
 				html += '<td><input type="hidden" name="serialIdx" value="'+serialData[i].idx+'"><input type="text" class="form-control text-center" name="serialNo" value="'+serialData[i].serialNo+'"></td>';
-			} else html += '<td><input type="hidden" name="serialIdx" value=""><input type="text" class="form-control text-center" name="serialNo"></td>';
+				html += '<td><input type="text" class="form-control text-center" name="customerSerialNo" value="'+serialData[i].customerSerialNo+'"></td>';
+			} else {
+				html += '<td><input type="hidden" name="serialIdx" value=""><input type="text" class="form-control text-center" name="serialNo"></td>';
+				html += '<td><input type="text" class="form-control text-center" name="customerSerialNo"></td>';
+			}
 			html += '</tr>';
 		}
 		
@@ -481,6 +589,7 @@
 			let obj = new Object();
 			obj.idx = $($('#serialNoModalTable tbody tr').eq(i)).find('input[name=serialIdx]').val() == '' ? '' : $($('#serialNoModalTable tbody tr').eq(i)).find('input[name=serialIdx]').val();
 			obj.serialNo = $($('#serialNoModalTable tbody tr').eq(i)).find('input[name=serialNo]').val();
+			obj.customerSerialNo = $($('#serialNoModalTable tbody tr').eq(i)).find('input[name=customerSerialNo]').val();
 
 			array.push(obj);
 		}

@@ -34,13 +34,13 @@ public class CsResultController {
 	private static final Logger logger = LoggerFactory.getLogger(CsResultController.class);
 
 	// bssc0140 페이지
-	@RequestMapping(value = "/ts/tssc0020", method = RequestMethod.GET)
-	public ModelAndView bssc0140(ModelAndView mav, HttpServletRequest request) {
-		logger.info("page : /ts/tssc0020");
-		mav.addObject("userName", Utils.getUserNm());
-		mav.setViewName("/ts/tssc0020");
-		return mav;
-	}
+//	@RequestMapping(value = "/ts/tssc0020", method = RequestMethod.GET)
+//	public ModelAndView bssc0140(ModelAndView mav, HttpServletRequest request) {
+//		logger.info("page : /ts/tssc0020");
+//		mav.addObject("userName", Utils.getUserNm());
+//		mav.setViewName("/ts/tssc0020");
+//		return mav;
+//	}
 	
 	@RequestMapping(value = "/ts/csResultList", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> csResultList(CsResultVo csResultVo) throws Exception {

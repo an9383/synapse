@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 public class SupplyChainManagementVo {
 	private String idx;
 	private String orderDtlNo;
+	private String orderDtlSeq;
 	private String dealCorpIdx;
 	private String dealCorpCd;
 	private String dealCorpNm;
@@ -22,6 +23,8 @@ public class SupplyChainManagementVo {
 	private String deliveryYn;
 	private String inOutGubun;
 	private String individualYn;
+	private String importInspection;
+	private String returnYn;
 	
 	private String startDate;
 	private String endDate;
@@ -36,4 +39,7 @@ public class SupplyChainManagementVo {
 	
 	private String planUuid;
 	private String floorPlan;
+	
+	private String projectIdx;
+	private String projectDtlIdx;
 }

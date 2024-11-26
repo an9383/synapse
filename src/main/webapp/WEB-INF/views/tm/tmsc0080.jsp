@@ -301,7 +301,7 @@
     			}
         	}
         });
-        selectBoxAppend(locationList, 'afterWarehouse', '', '2')
+        selectBoxAppend(locationList, 'afterWarehouse', '', '2');
     })
 	
 	
@@ -376,11 +376,11 @@
 			toastr.warning('담당자를 선택해주세요.');
 			return false;
         }
-        if($('#moveReason').val() == ''){
-        	$('#moveReason').focus();
-			toastr.warning('사유를 선택해주세요.');
-			return false;
-        }
+//         if($('#moveReason').val() == ''){
+//         	$('#moveReason').focus();
+// 			toastr.warning('사유를 선택해주세요.');
+// 			return false;
+//         }
         if($('#afterWarehouse').val() == ''){
         	$('#afterWarehouse').focus();
 			toastr.warning('이동 후 창고를 선택해주세요.');

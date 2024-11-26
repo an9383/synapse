@@ -7,80 +7,110 @@
 <%@include file="../layout/top.jsp"%>
 <%@include file="../layout/modal.jsp"%>
 <%@include file="../layout/script.jsp"%>
+
 <div id="page" onmouseup="EndDrag()" onmousemove="OnDrag(event)" style="grid-template-areas: 'leftcol';
 																		  grid-template-rows: 1fr;
 																		  grid-template-columns: 1fr;">
 	<div id="leftcol">
 		<div class="container-fluid h-100" style="padding: 5px;">
-			<div class="row" id="rightHeader" style="padding-bottom: 5px;">
+			<div class="row" id="leftHeader" style="padding-bottom: 5px;">
 				<div class="d-flex align-items-center d-flex">
-					<label class="form-label d-flex align-items-center header-label m-0 me-1 h-100">출고일자</label>
+					<label class="form-label d-flex align-items-center header-label m-0 me-1 h-100">발주일자</label>
 					<input type="date" max="9999-12-31" class="form-control w-auto h-100 me-1" id="startDate">
 					<label class="form-label d-flex align-items-center m-0 me-1 h-100">~</label>
 					<input type="date" max="9999-12-31" class="form-control w-auto h-100 me-1" id="endDate">
 					<select class="form-select w-auto h-100 me-3 monthAdjust" id="monthAdjust">
 					</select>
-					
-					<label class="form-label d-flex align-items-center header-label m-0 me-1 h-100">제품코드</label>
-					<div class="input-group w-auto h-100 me-3">
-						<input type="text" class="form-control" id="itemNm" style="width: 200px;" disabled>
-						<button type="button" class="btnInputDel" style="background-color: transparent; border-color: transparent; position: absolute; top: 0; right: 0; margin: 5px 23px; margin-left: 0px; border: none;">
-							<i class="fa-solid fa-xmark"></i>
-						</button>
-						<input type="hidden" id="itemIdx">
-						<button type="button" style="padding: 1px 4px; margin-left: 0px;" class="btn btn-primary" id="btnSearchItem">
-							<i class="fa-solid fa-magnifying-glass"></i>
-						</button>
-					</div>
-					<label class="form-label d-flex align-items-center header-label m-0 me-1 h-100">거래처</label>
-					<div class="input-group w-auto h-100 me-3">
-						<input type="text" class="form-control" id="searchDealCorpNm" disabled> 
-						<button type="button" id="btnSearchDealCorpDel" style="background-color: transparent; border-color: transparent; position: absolute; top: 0; right: 0; margin: 5px 23px; margin-left: 0px; border: none;">
-							<i class="fa-solid fa-xmark"></i>
-						</button>
-						<input type="hidden" id="searchDealCorpIdx">
-						<button type="button" style="padding: 1px 4px; margin-left: 0px;" class="btn btn-primary" id="btnSearchDealCorp">
-							<i class="fa-solid fa-magnifying-glass"></i>
-						</button>
-					</div>
-					
-					<!-- <label class="form-label d-flex align-items-center header-label m-0 me-1 h-100">차량배정</label>
-					<select class="form-select w-auto h-100 me-3" id="carAssignment" style="min-width: 70px;">
-					</select> -->
-					<!-- <input type="text" class="form-control w-auto h-100 me-1" id="searchAllDtl" placeholder="통합검색" > -->
 				</div>
 				<div class="me-lg-auto"></div>
 				<div class="d-flex align-items-center justify-content-end">
+<!-- 					<div class="btn-group me-3" role="group" aria-label="Small button group"> -->
+<!-- 						<button type="button" class="btn btn-outline-light w-auto " id="deliveryY" style="font-size: 16px !important;">납품등록</button> -->
+<!-- 					</div> -->
 					<div class="btn-group" role="group" aria-label="Small button group">
 						<button type="button" class="btn btn-outline-light w-auto " style="font-size: 18px !important;" id="btnSearch"><i class="fa-regular fa-clipboard"></i></button>
-						<!-- <button type="button" class="btn btn-outline-light w-auto" style="font-size: 20px !important;" id="btnCopy"><i class="fa-regular fa-copy"></i></button> -->
-						<button type="button" class="btn btn-outline-light w-auto" style="font-size: 20px !important;" id="btnSave" disabled><i class="fa-regular fa-floppy-disk"></i></button>
-						<button type="button" class="btn btn-outline-light w-auto" style="font-size: 18px !important;" id="btnEdit" ><i class="fa-regular fa-pen-to-square"></i></button>
-						<button type="button" class="btn btn-outline-danger w-auto" style="font-size: 17px !important;" id="btnDel"><i class="fa-solid fa-trash-can"></i></button>
-						<button type="button" class="btn btn-outline-light w-auto" style="font-size: 20px !important;" id="btnCancel" disabled><i class="fa-solid fa-xmark"></i></button>
-					<!-- 	<button type="button" class="btn btn-outline-light w-auto" style="font-size: 18px !important;" id="btnClose"><i class="fa-solid fa-caret-right"></i></button> -->
+<!-- 						<button type="button" class="btn btn-outline-light w-auto" style="font-size: 20px !important;" id="btnSave" disabled><i class="fa-regular fa-floppy-disk"></i></button> -->
+<!-- 						<button type="button" class="btn btn-outline-light w-auto" style="font-size: 18px !important;" id="btnEdit"><i class="fa-regular fa-pen-to-square"></i></button> -->
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<table class="table table-bordered p-0 m-0" id="bizOrdOutProdTable">
+				<table class="table table-bordered p-0 m-0" id="scmUpvoteYnTable">
 					<thead class="table-light">
 						<tr>
-						<th class="text-center align-middle"><input type="checkbox" id="btnAllCheck" style="width: 20px; height: 20px;"></th>
-							<th class="text-center align-middle">출고일자</th>
-							<th class="text-center align-middle">출고전표번호</th>
-							<th class="text-center align-middle">출고량</th>
-							<th class="text-center align-middle">품목</th>
-							<th class="text-center align-middle">자재코드</th>
-							<th class="text-center align-middle">버전</th>
-							<th class="text-center align-middle">발주번호/Batch</th>
-							<th class="text-center align-middle">수주상세</th>
-							<th class="text-center align-middle">고객사</th>
-							<th class="text-center align-middle">수주수량</th>
-							<th class="text-center align-middle">납품처</th>
-							<th class="text-center align-middle">납품장소</th>
-							<th class="text-center align-middle">명세서출력번호</th>
-							<th class="text-center align-middle">비고</th>
+							<th class="text-center align-middle">발주번호</th>
+							<th class="text-center align-middle">순번</th>
+							<th class="text-center align-middle">품번</th>
+							<th class="text-center align-middle">수량</th>
+							<th class="text-center align-middle">거래처</th>
+							<th class="text-center align-middle">발주자</th>
+							<th class="text-center align-middle">도면</th>
+							<th class="text-center align-middle">성적서</th>
+							<th class="text-center align-middle">납품여부</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+<!-- 	<input type="file" class="d-none" id="issueFile" multiple=""> -->
+
+</div>
+<div class="modal fade" id="planModal" tabindex="-1" aria-hidden="true" style="z-index: 9998;">
+	<div class="modal-dialog" style="max-width: 35vw;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					도면
+				</h5>
+				<div class="btn-group" role="group" aria-label="Small button group">
+					<button type="button" class="btn btn-outline-light w-auto" style="font-size: 20px !important;" data-bs-dismiss="modal" aria-label="Close">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex align-items-center justify-content-end w-100 my-1">
+					<input type="file" class="d-none" id="planFile">
+					<div class="btn-group" role="group" aria-label="Small button group">
+						<button type="button" class="btn btn-outline-light w-auto" style="font-size: 20px !important;" id="btnPlanSave" disabled><i class="fa-regular fa-floppy-disk"></i></button>
+					</div>
+				</div>
+				<table class="table table-bordered p-0 m-0" id="planTable">
+					<thead class="table-light">
+						<tr>
+							<th class="text-center align-middle">파일</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="reportModal" tabindex="-1" aria-hidden="true" style="z-index: 9998;">
+	<div class="modal-dialog" style="max-width: 35vw;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					성적서
+				</h5>
+				<div class="btn-group" role="group" aria-label="Small button group">
+					<button type="button" class="btn btn-outline-light w-auto" style="font-size: 20px !important;" data-bs-dismiss="modal" aria-label="Close">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex align-items-center justify-content-end w-100 my-1">
+					<input type="file" class="d-none" id="reportFile">
+					<div class="btn-group" role="group" aria-label="Small button group">
+						<button type="button" class="btn btn-outline-danger w-auto" style="font-size: 17px !important;" id="btnReportDel"><i class="fa-solid fa-trash-can"></i></button>
+					</div>
+				</div>
+				<table class="table table-bordered p-0 m-0" id="reportTable">
+					<thead class="table-light">
+						<tr>
+							<th class="text-center align-middle">파일</th>
 						</tr>
 					</thead>
 				</table>
@@ -89,133 +119,109 @@
 	</div>
 </div>
 
-<!-- 화면설정 script -->
+<div class="modal fade" id="fileDeleteModal" tabindex="-1" aria-hidden="true" style="z-index: 9999;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					<i class="fa-solid fa-triangle-exclamation text-danger"></i> <spring:message code="modal.warning" text="default text" />
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<spring:message code="modal.deleteGuide" text="default text" />
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" id="btnFileDeleteModalY" data-bs-dismiss="modal" style="width: 70px;">
+					<spring:message code="yes" text="default text" />
+				</button>
+				<button type="button" class="btn btn-secondary" id="btnFileDeleteModalN" data-bs-dismiss="modal" style="width: 70px;">
+					<spring:message code="no" text="default text" />
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
 <script>
-	let isDragging = false;
-
+	let isDraggingV = false;
+	
 	function SetCursor(cursor) {
 		let page = document.getElementById("page");
 		page.style.cursor = cursor;
 	}
-
+	
 	function StartDrag() {
-		isDragging = true;
-		SetCursor("ew-resize");
+		isDraggingV = true;
+		SetCursor("n-resize");
 	}
-
+	
 	function EndDrag(e) {
-		if(isDragging) {
+		if(isDraggingV) {
 			dataTableDrawAll(); // dataTable 전체 reload
-			isDragging = false;
+			isDraggingV = false;
 			SetCursor("auto");
 		}
 	}
-
-	function OnDrag(event) {
-		if (isDragging) {
-			let page = document.getElementById("page");
-			let leftcol = document.getElementById("leftcol");
-			let rightcol = document.getElementById("rightcol");
-			let dragbarWidth = 4;
-			let leftcolMinWidth = 20; // leftcol 최소사이즈
-			$('#leftHeader').children().each(function(index, item) {
-				leftcolMinWidth += $(item).width();
-			});
-			let rightcolMinWidth = 500; // rightcol 최소사이즈
 	
-			let rightColWidth = isDragging ? page.clientWidth - parseInt(Math.max(leftcolMinWidth + 20, event.clientX)) : rightcol.clientWidth;
-
+	function OnDrag(event) {
+		if (isDraggingV) {
+			let dragbarWidth = 4;
+	
+			let page_height = parseInt($('#page').height()); 				// 전체 높이
+			let middlecolT_height = parseInt($('#middlecolT').height());	// 상단
+			let middlecolB_height = parseInt($('#middlecolB').height());	// 하단
+	
+			let middlecolT_min_height = 100;	// 상단 최소높이
+			let middlecolB_min_height = 100;	// 하단 최소높이
+	
+			let cursorY = event.clientY;	// 현재 cursor y좌표(위에서부터 얼마나 떨어졌는지)
+	
 			let cols = [
-				parseInt(Math.max(leftcolMinWidth, page.clientWidth - dragbarWidth - parseInt(Math.max(rightColWidth, rightcolMinWidth)))),
+				Math.min(Math.max(middlecolT_min_height, cursorY), page_height - middlecolB_min_height - dragbarWidth),
 				dragbarWidth,
-				parseInt(Math.max(rightColWidth, rightcolMinWidth))
+				Math.max(page_height - Math.max(middlecolT_min_height, cursorY) - dragbarWidth, middlecolB_min_height)
 			];
 	
 			let newColDefn = cols.map(c => c.toString() + "px").join(" ");
 	
-			page.style.gridTemplateColumns = newColDefn;
+			$('#page').css('grid-template-rows',newColDefn);
 	
 			event.preventDefault()
 		}
 	}
-	
-	$('#btnOpen').on('click',function() { // right-box 열기버튼 클릭
-		$('#page').css('grid-template-columns', '1fr 4px 3fr');
-		$('#rightcol').removeClass('d-none');
-		dataTableDrawAll(); // dataTable 전체 reload
-	});
-	$('#btnClose').on('click',function() { // right-box 닫기버튼 클릭
-		$('#page').css('grid-template-columns', '1fr');
-		$('#rightcol').addClass('d-none');
-		dataTableDrawAll(); // dataTable 전체 reload
-	});
 </script>
 
 <script>
-	WM_init('new');
+	WM_init('SCM');
+
+	let fileFormData = new FormData();
+	let dealCorp = '${userDepartmentCd}';
+	let modalType = '';
+	let orderDtlNo = '';
+	let orderDtlSeq = '';
+	let projectIdx = '';
+	let projectDtlIdx = '';
 
 	let monthAdjustList = getCommonCode('시스템', '026'); //날짜조정
 	monthAdjustList = _.sortBy(monthAdjustList, v=>parseInt(v.commonCd));
 	selectBoxAppend(monthAdjustList, 'monthAdjust', '', '2'); //날짜조정
 	
-	let dealCorpIdxVal = '';
-
 	let dealGubunList = getCommonCode('시스템', '011'); // 거래구분
 	let dealCorpStatusList = getCommonCode('시스템', '015'); // 거래상태
-	let pageLengthCnt = parseInt(getCommonCode('시스템', '025')[0].commonCd); //페이징수량
 	
 	selectBoxAppend(dealGubunList, 'modalDealGubun', '', '1'); //거래구분
 	selectBoxAppend(dealCorpStatusList, 'modalDealCorpStatus', '', '1'); //거래상태
-
-	let workplaceList = new Array();	// 사업장 리스트
-	let locationList = new Array();
 	
-	//창고정보 조회
-	$.ajax({
-
-		url : '<c:url value="/bm/locationAdmList"/>',
-		type : 'GET',
-		async : false,
-		data : {
-			itemGubun	:	'',
-			'lcTypeOutput' : function() { return 'Y'; }
-		},
-		success : function(res) {
-			if (res.result == "ok") { //응답결과
-				let data = res.data;
-				data.forEach((item) => {
-					var locationData = new Object();
-					locationData.id = item.idx;
-					locationData.text = item.lcNm;
-					locationList.push(locationData);
-				});
-			} else if(res.result == 'fail') {
-				toastr.warning(res.message);
-			} else {
-				toastr.error(res.message);
-			}
-		}
-	});
-
+	
 	$('#startDate').val(moment().subtract('w',1).format('YYYY-MM-DD'));
 	$('#endDate').val(moment().format('YYYY-MM-DD'));
 
-	// 수주처 목록 조회 버튼 click
-	$('#btnSearch').on('click', function() {
-		bizOrdOutProdTable.ajax.reload(function() {});
-		$('#btnSave').attr('disabled',true);
-		$('#btnEdit').attr('disabled',false);
-		$('#btnDel').attr('disabled',false);
-		$('#btnCancel').attr('disabled',true);
-		WM_action_OFF('new');
-	});
-
-	// 수주상세목록조회
-	$('#bizOrdOutProdTable thead tr').clone(true).addClass('filters').appendTo('#bizOrdOutProdTable thead'); // filter 생성
-	let bizOrdOutProdTable = $('#bizOrdOutProdTable').DataTable({
-		dom : "<'row'<'col-md-12 col-md-6'l><'col-md-12 col-md-6'f>>"
-				+ "<'row'<'col-md-12'tr>>"
-				+ "<'row pt-1'<'d-flex align-items-center d-flex'><'me-lg-auto'><'d-flex align-items-center justify-content-end'>>",
+	// 수주관리 전체 목록조회
+	$('#scmUpvoteYnTable thead tr').clone(true).addClass('filters').appendTo('#scmUpvoteYnTable thead'); // filter 생성
+	let scmUpvoteYnTable = $('#scmUpvoteYnTable').DataTable({
+		dom :"<'row'<'col-md-12 col-md-6'l><'col-md-12 col-md-6'f>>"
+			+ "<'row'<'col-md-12'tr>>"
+			+ "<'row pt-1'<'d-flex align-items-center d-flex'Bp><'me-lg-auto'><'d-flex align-items-center justify-content-end'i>>",
 		language: lang_kor,
 		info: true,
 		ordering: true,
@@ -229,172 +235,86 @@
         scrollY: '100vh',
         scrollX: true,
 		pageLength: 100000000,
-		colReorder: false,
+		colReorder: true,
 		select: {
-            style: 'single',
+			style: 'single',
             toggleable: false,
             items: 'row',
             info: false
         },
         ajax : {
-			url : '<c:url value="/stock/bizOrderProdOutLst"/>',
+			url : '<c:url value="/sc/scmUpvoteYnLst"/>',
 			type : 'POST',
 			data : {
-				'startDate' 	: function() { return moment($('#startDate').val()).format('YYYYMMDD'); },
-				'endDate' 		: function() { return moment($('#endDate').val()).format('YYYYMMDD'); },
-				'itemIdx'		: function() { return $('#itemIdx').val(); },
-				'dealCorpIdx'	: function() { return $('#searchDealCorpIdx').val(); },
+				startDate	: function() { return moment($('#startDate').val(),'YYYY-MM-DD').format('YYYYMMDD'); },
+				endDate		: function() { return moment($('#endDate').val(),'YYYY-MM-DD').format('YYYYMMDD'); },
+				deliveryYn	: function() { return 'Y'; },
+				dealCorpIdx : function() { return dealCorp; },
 			},
 		},
-        rowId: '',
-        columns : [
-        	{ data : 'outProdEtc4', className : 'text-center  align-middle',
-				render: function(data, type, row, meta) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"><input type="checkbox" disabled name="btnNotCheck" style="width:20px; height:20px;"></div>';
+//         rowId: 'orderDtlNo',
+		columns : [
+			{ data : 'orderDtlNo', className : 'text-center align-middle', name : 'orderDtlNo',
+				render : function(data, type, row, meta){
+					if(data != null){
+						return data;
+					}else return '';
+				}
+			},
+			{ data : 'orderDtlSeq', className : 'text-center align-middle', name : 'orderDtlSeq',
+				render : function(data, type, row, meta){
+					if(data != null){
+						return data;
+					}else return '';
+				}
+			},
+			{ data : 'itemCd', className : 'text-center align-middle', name : 'itemCd'},
+			{ data : 'orderDtlQty', className : 'text-center align-middle', name : 'orderDtlQty'},
+			{ data : 'dealCorpNm', className : 'text-center align-middle', name : 'dealCorpNm'},
+			{ data : 'deliveryUserNm', className : 'text-center align-middle', name : 'deliveryUserNm'},
+			{ data : 'floorPlan', className : 'text-center align-middle', name : 'floorPlan',
+				render : function(data, type, row, meta) {
+					if(data!=null && parseInt(data) > 0) {
+						return '<button type="button" class="btn btn-outline-light w-auto" onclick="planModal(\''+row['projectIdx']+'\',\''+row['projectDtlIdx']+'\',\'O\')">O</button>';
 					} else {
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"><input type="checkbox" name="btnCheck" style="width:20px; height:20px;"></div>';
+						return '<button type="button" class="btn btn-outline-light w-auto" onclick="planModal(\''+row['projectIdx']+'\',\''+row['projectDtlIdx']+'\',\'X\')">X</button>';
 					}
 				}
 			},
-			{ data : 'outDate', className : 'text-center align-middle',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+moment(data).format('YYYY-MM-DD')+'</div>';
+			{ data : 'reports', className : 'text-center align-middle', name : 'reports',
+				render : function(data, type, row, meta) {
+					if(data!=null && data != '') {
+						return '<button type="button" class="btn btn-outline-light w-auto" onclick="reportModal(\''+row['orderDtlNo']+'\',\''+row['orderDtlSeq']+'\',\'O\')">O</button>';
 					} else {
-						return '';
+						return '<button type="button" class="btn btn-outline-light w-auto" onclick="reportModal(\''+row['orderDtlNo']+'\',\''+row['orderDtlSeq']+'\',\'X\')">X</button>';
 					}
 				}
-			},//출고일자
-			{ data : 'outSlipIdx', className : 'text-center align-middle',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
+			},
+			{ data : 'deliveryYn', className : 'text-center align-middle', name : 'deliveryYn',
+				render : function(data, type, row, meta) {
+					if(data!=null && data != '') {
+						if(data != 'N') {
+							return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">완료</div>';
+						} else {
+							return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">미완료</div>';
+						}
 					} else {
-						return '';
+						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">미완료</div>';
 					}
 				}
-			},//출고번호
-			{ data : 'outQty', className : 'text-end align-middle', name : 'outQty',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+addCommas(parseFloat(data))+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//출고수량
-			{ data : 'itemNm', className : 'text-center align-middle',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//품목
-			{ data : 'paperType', className : 'text-center align-middle',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//자재명
-			{ data : 'versionNm', className : 'text-center align-middle',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//버전
-			{ data : 'purchaseBatch', className : 'text-center align-middle',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//발주번호/batch
-			{ data : 'bizOrdDtlNo', className : 'text-center align-middle',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//수주상세
-			{ data : 'bizDealCorpNm', className : 'text-center align-middle',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//수주 고객사
-			{ data : 'bizOrdQty', className : 'text-end align-middle',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+addCommas(parseFloat(data))+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//수주수량
-			{ data : 'outProdDealCorpNm', className : 'text-center align-middle', name: 'outProdDealCorpNm',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//납품처
-			{ data : 'outProdEtc2', className : 'text-center align-middle', name : 'outProdEtc2',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//납품장소
-			{ data : 'outProdEtc4', className : 'text-center align-middle', name : 'outProdEtc4',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//명세서출력번호
-			{ data : 'outDesc', className : 'text-center align-middle', name : 'outDesc',
-				render: function(data) {
-					if(data != null && data != ''){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-					} else {
-						return '';
-					}
-				}
-			},//비고
+			},
 		],
 		columnDefs : [
+			{ targets: [0], orderable: false },
 			{
 				targets: '_all',
 				render: function(data) {
 					return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
 				}
-			},
-			{ "targets": [0], "orderable": false },
+			}
 		],
 		buttons : [
-			/* { extend: 'excel',	text: 'Excel',	charset: 'UTF-8', bom: true ,
+			{ extend: 'excel',	text: 'Excel',	charset: 'UTF-8', bom: true ,
 				exportOptions: {
 	                modifier: {
 	                   selected:null
@@ -403,16 +323,39 @@
 	        },
 			{ extend: 'pdf',	text: 'PDF',	},
 			{ extend: 'print',	text: 'Print',		charset: 'UTF-8', bom: true },
-			{ extend: 'colvis',	text: 'Select Col',	}, */
+			/* { extend: 'colvis',	text: 'Select Col',	}, */
 		],
 		order : [],
 		drawCallback: function() {
 			let api = this.api();
-			let htmlHeight = parseFloat($('html').css('height'));
-			let theadHeight = parseFloat($('#bizOrdOutProdTable_wrapper').find('.dataTables_scrollHead').css('height'));
-			$('#bizOrdOutProdTable_wrapper').find('.dataTables_scrollBody').css('height',(htmlHeight - theadHeight - 50)+'px');
+			let table_id = $(api.table().node()).attr('id'); // dataTable ID
 			
-			$('#bizOrdOutProdTable_filter').addClass('d-none');
+			let htmlHeight = parseFloat($('html').css('height'));
+			let middlecolT_height = parseFloat($('#leftcol').css('height'));
+			let theadHeight = parseFloat($('#scmUpvoteYnTable_wrapper').find('.scmUpvoteYnTable_scrollHead').css('height'));
+			$('#scmUpvoteYnTable_wrapper').find('.dataTables_scrollBody').css('height',(middlecolT_height - theadHeight - 80)+'px');
+			
+			$('#scmUpvoteYnTable_filter').addClass('d-none');
+			// 통합검색
+			$('#searchAll').off('keyup',function() {});
+			$('#searchAll').on('keyup',function() {
+				$('#'+table_id+'_filter').find('input').val($(this).val());
+				$('#'+table_id+'_filter').find('input').trigger('keyup');
+			});
+			$('.bootstrapToggle').bootstrapToggle();
+
+			let data = api.data();
+			let node = api.rows().nodes();
+			if(data.length > 0){
+				$(node).each(function(index, item) {
+					let selectData = scmUpvoteYnTable.row(item).data();
+					if( scmUpvoteYnTable.row(item).data().printYn == 'Y' || ( selectData.mergeIdx != '' && selectData.mergeIdx != null && selectData.mergeIdx != '0') ) {
+						$(scmUpvoteYnTable.row(item).node()).find('.bootstrapToggle').bootstrapToggle('disable');
+						$(scmUpvoteYnTable.row(item).node()).addClass('notEdit');
+					}
+				});
+			}
+			
 		},
 		initComplete: function () {
 			let api = this.api();
@@ -421,24 +364,19 @@
 			// For each column
 			api.columns().eq(0).each(function (colIdx) {
 				// Set the header cell to contain the input element
-				let cell = $('#bizOrdOutProdTable_wrapper').find('.filters th').eq(
+				let cell = $('#scmUpvoteYnTable_wrapper').find('.filters th').eq(
 					$(api.column(colIdx).header()).index()
 				);
 
 				let title = $(cell).text();
 
-				if(colIdx > 0){
-					$(cell).html('<input type="text" class="form-control" placeholder="' + title + '" />');
-					$(cell).css('padding','2px');
-				} else {
-					$(cell).html('');
-					$(cell).css('padding','2px');
-				}
+				$(cell).html('<input type="text" class="form-control"/>');
+				$(cell).css('padding','2px');
 
 				let cursorPosition = '';
 				
 				// On every keypress in this input
-				$('#bizOrdOutProdTable_wrapper').find('.filters th').eq($(api.column(colIdx).header()).index()).find('input').off('keyup keyupTrigger').on('keyupTrigger', function (e) {
+				$('#scmUpvoteYnTable_wrapper').find('.filters th').eq($(api.column(colIdx).header()).index()).find('input').off('keyup keyupTrigger').on('keyupTrigger', function (e) {
 					api.column(colIdx).search(this.value, false, false, true).draw();
 				}).on('keyup', function (e) {
 					e.stopPropagation();
@@ -448,10 +386,10 @@
 		},
 	});
 	// dataTable colReorder event
-	bizOrdOutProdTable.on('column-reorder', function( e, settings, details ) {
-		let api = bizOrdOutProdTable;
+	scmUpvoteYnTable.on('column-reorder', function( e, settings, details ) {
+		let api = scmUpvoteYnTable;
 		api.columns().eq(0).each(function (colIdx) {
-			$('#bizOrdOutProdTable_wrapper').find('.filters th').eq($(api.column(colIdx).header()).index()).find('input').off('keyup keyupTrigger').on('keyupTrigger', function (e) {
+			$('#scmUpvoteYnTable_wrapper').find('.filters th').eq($(api.column(colIdx).header()).index()).find('input').off('keyup keyupTrigger').on('keyupTrigger', function (e) {
 				api.column(colIdx).search(this.value, false, false, true).draw();
 			}).on('keyup', function (e) {
 				e.stopPropagation();
@@ -460,257 +398,318 @@
 		});
 	});
 
-	// 작업중 경고 모달 예 버튼 click
-	$('#btnWorkingWarningModalY').on('click', function() {
-		if(WMlastIdx == 'new' || WMlastIdx == 'edit') { // 등록중이거나 수정중이였을 경우
-			$('#btnSave').trigger('click');
-			return false;
-		}
-	});
-
-	// 작업중 경고 모달 아니요 버튼 click
-	$('#btnWorkingWarningModalN').on('click', function() {
-		if(WMlastIdx == 'new' || WMlastIdx == 'edit') { // 등록중이거나 수정중이였을 경우
-			if(getWM(WMlastIdx, 'idx') != '' && getWM(WMlastIdx, 'idx') != undefined) {
-				let idx = getWM(WMlastIdx, 'idx');
-				WM_action_OFF(WMlastIdx);
-				setWM(WMlastIdx, 'idx', '');
-				bizOrderDealCorpTable.row('#'+idx).select();
-				$(bizOrderDealCorpTable.row('#'+idx).node()).trigger('click'); // 선택했던 항목 선택처리
-			} else {
-				WM_action_OFF(WMlastIdx);
-				if(window.location != window.parent.location) { // tab일 경우
-					// 부모 탭 닫기버튼 click
-					$('#tab-list', parent.document).find('.active').find('span').eq(1).find('i').trigger('click');
-			    }
-				
-				$('.inputGroup').attr('disabled', true); // 입력항목
-				
-				$('#btnSave').attr('disabled', true); // 저장 버튼
-				$('#btnEdit').attr('disabled', true); // 수정 버튼
-				$('#btnCancel').attr('disabled', true); // 취소 버튼
-			}
-			return false;
-		}
-	});
-
-	// 취소 버튼 click
-	$('#btnCancel').on('click', function() {
-		$('#cancelModal').modal('show');
-	});
-
-	// 취소 경고창 취소 버튼 click
-	$('#btnCancelModalY').on('click', function() {
-		toastr.success('취소되었습니다.');
-
-		WM_action_OFF('new');
-
-		$('.inputGroup').attr('disabled', true); // 입력항목
-		
-		$('#btnSave').attr('disabled', true); // 저장 버튼
-		$('#btnEdit').attr('disabled', false); // 수정 버튼
-		$('#btnDel').attr('disabled', false); // 삭제 버튼
-		$('#btnCancel').attr('disabled', true); // 취소 버튼
-		bizOrdOutProdTable.ajax.reload(function() {});
-	});
-
-	//수정
-	$('#btnEdit').on('click',function(){
-		_promise_().then(()=>{
-			WM_action_ON('new', 'workingWarningModal');
-			$('#btnCancel').attr('disabled',false);
-			$('#btnSave').attr('disabled',false);
-			$('#btnEdit').attr('disabled',true);
-			$('#btnDel').attr('disabled', true); // 삭제 버튼
-			
-		}).then(()=>{
-			$('#bizOrdOutProdTable tbody').find('tr').each(function(index_tr, tr) {
-				let data = bizOrdOutProdTable.row(tr).data();
-				let node = bizOrdOutProdTable.row(tr).node();
-				$(tr).find('td').each(function(index_td, td) {
-					let trData = bizOrdOutProdTable.row(tr).data();
-					if(index_td == bizOrdOutProdTable.column('outQty:name').index()){//출고량
-						let outQty = bizOrdOutProdTable.row(tr).data().outQty;
-						let html = '<input type="text" class="form-control text-end" name="saRealQty" value="'+addCommas(parseFloat(outQty))+'" onkeyup="numberFormat(this,\'int\')">';
-						$(td).html(html);
-					} else if(index_td == bizOrdOutProdTable.column('outProdDealCorpNm:name').index()){//납품처
-						let idx = bizOrdOutProdTable.row(tr).data().outProdDealCorpIdx;
-						let dealCorpNm = bizOrdOutProdTable.row(tr).data().outProdDealCorpNm; 
-						let html = '';
-						html += '<div style="display: flex; flex-wrap: nowrap;" class="input-group">';
-						html += '<input type="text" class="form-control inputNm" name="dealCorpNm" style="min-width: 100px;" disabled="disabled" value="'+dealCorpNm+'">';
-						html += '<button type="button" class="nameDel customerNm inputGroup btnInputDel" name="btnDealCorpDel" style="background-color: transparent;border-color: transparent;position: absolute;top: 0;right:0;margin: 1px 23px;margin-left: 0px;border: none;"><i class="fa-solid fa-xmark"></i></button>';
-						html += '<input type="hidden" class="inputIdx" name="dealCorpIdx" value ="'+idx+'">';
-						html += '<button type="button" style="padding: 1px 4px; margin-left: 0px;" class="btn btn-primary input-sub-search inputGroup" name="btnDealCorpSel">';
-						html += '<i class="fa-solid fa-magnifying-glass"></i>';
-						html += '</button>';
-						html += '</div>';
-						$(td).html(html);
-					} else if(index_td == bizOrdOutProdTable.column('outProdEtc2:name').index()){//납품장소
-						let outProdEtc2 = isEmptyCheck(bizOrdOutProdTable.row(tr).data().outProdEtc2) ? '' : bizOrdOutProdTable.row(tr).data().outProdEtc2; 
-						let html = '<input type="text" value="'+outProdEtc2+'" name="outDesc" style="min-width: 150px;" class="form-control text-start inputGroup" >';
-						$(td).html(html);
-					} else if(index_td == bizOrdOutProdTable.column('outDesc:name').index()){//비고
-						let outDesc = isEmptyCheck(bizOrdOutProdTable.row(tr).data().outDesc) ? '' : bizOrdOutProdTable.row(tr).data().outDesc; 
-						let html = '<input type="text" value="'+outDesc+'" name="outDesc" style="min-width: 150px;" class="form-control text-start inputGroup" >';
-						$(td).html(html);
-					}
-				});
-				console.log('asdf');
-				if(data.outProdEtc4 != null && data.outProdEtc4 != ''){
-					$(node).find('button').attr('disabled',true);
-					$(node).find('input').attr('disabled',true);
-				}
-			});
-			
-			bizOrdOutProdTable.draw(false);
-		});
-			
-	});
-
-
-	// 저장버튼 click
-	$('#btnSave').on('click', function() {
+	// 조회 버튼 click
+	$('#btnSearch').on('click', function() {
 		$('#my-spinner').show();
+		scmUpvoteYnTable.ajax.reload(function() {}, false);
+		$('#allCheckBox').prop('checked', false);
+// 		$('#btnSave').attr('disabled',true);
+// 		$('#btnEdit').attr('disabled',false);
+		setTimeout(function() {
+			$('#my-spinner').hide();
+		}, 100)
+	});
 
-		setTimeout(function(){
-			let outNoString = '';
-			let array = [];
-			let state = true;
-			$('#bizOrdOutProdTable tbody').find('tr').each(function(index, item) {
-					let td = $(item).find('td');
-					let data = bizOrdOutProdTable.row($(item)).data();
-
-					//출고수량
-					let outQty = $(td).eq(bizOrdOutProdTable.column('outQty:name').index()).find('input').val();
-					//납품처
-					let outProdDealCorpIdx = $(td).eq(bizOrdOutProdTable.column('outProdDealCorpNm:name').index()).find('input[type=hidden]').val();
-					//납품장소
-					let outProdEtc2 = $(td).eq(bizOrdOutProdTable.column('outProdEtc2:name').index()).find('input').val();
-					//비고
-					let outDesc = $(td).eq(bizOrdOutProdTable.column('outDesc:name').index()).find('input').val();
-					
-					if(outQty == '0') {
-						toastr.warning('출고수량을 입력해주세요.');
-						$(td).eq(bizOrdOutProdTable.column('outQty:name').index()).find('input').focus();
-						state = false;
-						return false;
-					}
-
-					if(outProdDealCorpIdx == '') {
-						toastr.warning('납품처를 선택해주세요.');
-						$(td).eq(bizOrdOutProdTable.column('outProdEtc1:name').index()).find('button').eq(1).focus();
-						state = false;
-						return false;
-					}
-					if(outProdEtc2 == '') {
-						toastr.warning('납품장소를 입력해주세요.');
-						$(td).eq(bizOrdOutProdTable.column('outProdEtc2:name').index()).find('input').focus();
-						state = false;
-						return false;
-					}
-
-					let obj = new Object();
-					obj.outSlipNo = data.outSlipNo;
-					obj.outSlipSeq = data.outSlipSeq;
-					obj.outQty = parseFloat(removeCommas(outQty));
-					obj.outProdEtc1 = outProdDealCorpIdx;//납품처
-					obj.outProdEtc2 = outProdEtc2;//납품장소
-					obj.outDesc = outDesc;
-				    array.push(obj);
-				   
-			});
-
-			//원본데이터
-			let tableData = [];
-			for(var i=0;i<bizOrdOutProdTable.data().count();i++) {
-				let obj = {};
-
-				let data = bizOrdOutProdTable.row(i).data();
-				obj.outSlipNo = data.outSlipNo;
-				obj.outSlipSeq = data.outSlipSeq;
-				obj.outQty = parseFloat(data.outQty);
-				obj.outProdEtc1 = data.outProdDealCorpIdx;//납품처
-				obj.outProdEtc2 = data.outProdEtc2;//납품장소
-				obj.outDesc = isEmptyCheck(data.outDesc) ? '' : data.outDesc;
-				tableData.push(obj);
-			}
-			array = _.differenceWith(array, tableData, _.isEqual);
-			if(!state) {
-				return false;
-			} 
-
-			for(var key in array){
-				outNoString += (array[key].outSlipNo + '-' + array[key].outSlipSeq) + ',';
-			}
-			
-			outNoString = outNoString.slice(0,-1);
-			$.ajax({
-				url: '<c:url value="/stock/outProdWhsAdmUpd"/>',
-	            type: 'POST',
-	            data: {
-	                'updateJson'	:	JSON.stringify(array),
-	                'outNoString'	:	function(){return outNoString;},
-	            },
-	            beforeSend: function() {
-	            	$('#my-spinner').show();
-	            },
-				success : function(res) {
-					if (res.result == "ok") { //응답결과
-						toastr.success('저장되었습니다.');
-						WM_action_OFF('new');
-						bizOrdOutProdTable.ajax.reload(function() {});
-	        
-						bizOrdOutProdTable.colReorder.enable();
-	        
-						$('#btnSave').attr('disabled', true); // 저장 버튼
-						$('#btnEdit').attr('disabled', false); // 수정 버튼
-						$('#btnCancel').attr('disabled', true); // 취소 버튼
-						$('#btnDel').attr('disabled', false); // 삭제 버튼
-					} else if(res.result == 'fail') {
-						toastr.warning(res.message);
+	// 수주관리 전체 목록조회
+	let planTable = $('#planTable').DataTable({
+		dom :"<'row'<'col-md-12 col-md-6'l><'col-md-12 col-md-6'f>>"
+			+ "<'row'<'col-md-12'tr>>"
+			+ "<'row pt-1'<'d-flex align-items-center d-flex'Bp><'me-lg-auto'><'d-flex align-items-center justify-content-end'i>>",
+		language: lang_kor,
+		info: true,
+		ordering: false,
+		processing: true,
+		paging: false,
+		lengthChange: false,
+		searching: false,
+		autoWidth: false,
+		orderCellsTop: true,
+        fixedHeader: false,
+        scrollY: false,
+        scrollX: false,
+		pageLength: 100000000,
+		colReorder: true,
+		select: {
+			style: 'single',
+            toggleable: false,
+            items: 'row',
+            info: false
+        },
+        ajax : {
+			url : '<c:url value="/rm/projectDocumentLst"/>',
+			type : 'GET',
+			data : {
+				projectIdx	: function() { return projectIdx;},
+				projectDtlIdx	: function() { return projectDtlIdx;},
+			},
+		},
+		columns : [
+			{ data : 'fileName', className : 'text-center align-middle', name : 'floorPlan',
+				render : function(data, type, row, meta) {
+					if(data!=null && data != '') {
+						return "<a href=\"#\" onclick=\"projectFileDownload(\'"+row['uuid']+"\',\'"+data+"\',\'"+row['fileExt']+"\')\">"+data+'.'+row['fileExt']+"</a>";
 					} else {
-						toastr.error(res.message);
+						return '<div id="planFileNm" style="text-overflow: ellipsis; overflow: hidden;"></div>';
 					}
-					$('#my-spinner').hide();
 				}
-			}); 
-			
-		},100);
-		
+			},
+		],
+		buttons : [],
+	});
+	
+	let reportTable = $('#reportTable').DataTable({
+		dom :"<'row'<'col-md-12 col-md-6'l><'col-md-12 col-md-6'f>>"
+			+ "<'row'<'col-md-12'tr>>"
+			+ "<'row pt-1'<'d-flex align-items-center d-flex'Bp><'me-lg-auto'><'d-flex align-items-center justify-content-end'i>>",
+		language: lang_kor,
+		info: true,
+		ordering: false,
+		processing: true,
+		paging: false,
+		lengthChange: false,
+		searching: false,
+		autoWidth: false,
+		orderCellsTop: true,
+        fixedHeader: false,
+        scrollY: false,
+        scrollX: false,
+		pageLength: 100000000,
+		colReorder: true,
+		select: {
+			style: 'single',
+            toggleable: false,
+            items: 'row',
+            info: false
+        },
+        ajax : {
+			url : '<c:url value="/sc/scmFileLst"/>',
+			type : 'POST',
+			data : {
+				orderDtlNo	: function() { return orderDtlNo;},
+				orderDtlSeq	: function() { return orderDtlSeq;},
+			},
+		},
+//         rowId: 'orderDtlNo',
+		columns : [
+			{ data : 'reports', className : 'text-center align-middle', name : 'reports',
+				render : function(data, type, row, meta) {
+					if(data!=null && data != '') {
+						let dataNm = _.slice(data.split('.'), 0, -1).join('.');
+						let dataExt = data.split('.').at(-1);
+						return "<a href=\"#\" onclick=\"projectFileDownload(\'"+row['reportUuid']+"\',\'"+dataNm+"\',\'"+dataExt+"\')\">"+data+"</a>";
+					} else {
+						return '<div id="reportFileNm" style="text-overflow: ellipsis; overflow: hidden;"></div>';
+					}
+				}
+			},
+		],
+		buttons : [],
 	});
 
-	$('#btnDel').on('click',function(){
-		if($('input:checkbox[name=btnCheck]:checked').length == 0){
-			toastr.warning('삭제할 항목을 체크해주세요.');
-			return false;
+	function planModal(key, seq, check){
+		$('#btnPlanAdd').addClass('d-none');
+		fileFormData = new FormData();
+		modalType = 'planFile';
+		projectIdx = key;
+		projectDtlIdx = seq;
+// 		if(check == 'X'){
+// 			$('#planModal').modal('show');
+// 			$('#planFile').trigger('click');
+// 		}else{
+			$('#planModal').modal('show');
+// 		}
+		$('#btnPlanSave').attr('disabled', true);
+		setTimeout(function(){
+			planTable.ajax.reload();
+		}, 150);
+	}
+
+	function reportModal(key, seq, check){
+		$('#btnReportAdd').addClass('d-none');
+		fileFormData = new FormData();
+		modalType = 'reportFile';
+		orderDtlNo = key;
+		orderDtlSeq = seq;
+		if(check == 'X'){
+			$('#reportModal').modal('show');
+			$('#reportFile').trigger('click');
+		}else{
+			$('#reportModal').modal('show');
 		}
+		$('#btnReportSave').attr('disabled', true);
+		setTimeout(function(){
+			reportTable.ajax.reload();
+		}, 150);
+	}
 
-		$('#deleteModal').modal('show');
+	// 관련파일 추가 버튼 클릭
+	$('#btnReportAdd').on('click', function() {
+		$('#reportFile').trigger('click');
+	});
+	$('#btnPlanAdd').on('click', function() {
+		$('#planFile').trigger('click');
 	});
 
-	$('#btnDeleteModalY').on('click',function(){
-		let array = [];
-		let outNoString = '';
-		if($('input:checkbox[name=btnCheck]:checked').length > 0){
-			$('input:checkbox[name=btnCheck]:checked').each(function(index){
-				let tr = $(this).parent().parent().parent(); //해당 tr
-				let node = bizOrdOutProdTable.row(tr).node(); //해당 row의 node
-				let tableData = bizOrdOutProdTable.row(tr).data(); //해당 row의 data
-				let obj = new Object();
-				obj.bizOrdDtlNo= tableData.bizOrdDtlNo;
-				obj.outSlipNo = tableData.outSlipNo;
-				obj.outSlipSeq = tableData.outSlipSeq;
-				outNoString += (tableData.outSlipNo + '-' + tableData.outSlipSeq) + ',';
-			    array.push(obj);
-			});
-			outNoString = outNoString.slice(0,-1);
+	// 파일 선택
+	$(document).on('change', '#planFile, #reportFile', function() {
+		let fileInput = document.getElementById(modalType); //id로 파일 태그를 호출
+		let files = fileInput.files;		//업로드한 파일들의 정보를 넣는다.
+		for(let i=0; i<files.length; i++ ) {
+			let uuid = uuid_v4();
+
+			let fileNameList = files[i].name.split('.');
+			let fileNm = files[i].name.split('.').at(-1);
+			let fileFullNm = _.slice(fileNameList, 0, -1).join('.');
+			$('#'+modalType+'Nm').text(fileFullNm+'.'+fileNm);
+			$('#'+modalType+'Nm').val(uuid);
+		
+			fileFormData.append('file-'+uuid,files[i]);
+			fileFormData.append('uuid-'+uuid,uuid);
+			fileFormData.append('ext-'+uuid,files[i].name.split('.').at(-1));
+		}
+    	$('#btnReportSave').attr('disabled', false);
+    	$('#btnPlanSave').attr('disabled', false);
+    	$('#'+modalType).val('');
+	})
+	
+	// 파일 다운로드
+	function projectFileDownload(uuid, fileName, ext) {
+		fileDownload({uuid:uuid, fileName:fileName, ext:ext});
+	}
+
+	$(document).on('click','#btnPlanSave, #btnReportSave', function() {
+// 		let orderDtlNo = scmUpvoteYnTable.row('.selected').data().orderDtlNo;
+		$('#my-spinner').show();
+		let saveFileFormData = new FormData();
+		let fileSubKeyIndex = 1;
+		let fileKeyIndex = 0; 
+		for (var key of fileFormData.keys()) {
+			if(fileSubKeyIndex==1) {
+				saveFileFormData.append(key, fileFormData.get(key));
+				console.log("fileFormData.get(key) : " + fileFormData.get(key));
+			} else if(fileSubKeyIndex==2) {
+				saveFileFormData.append('uuid', fileFormData.get(key));
+				console.log("uuid : " + fileFormData.get(key));
+			} else {
+				saveFileFormData.append('ext', fileFormData.get(key));
+				console.log("ext : " + fileFormData.get(key));
+			} 
+			fileSubKeyIndex++;
+			if(fileSubKeyIndex==3) {
+				fileSubKeyIndex = 0;
+				fileKeyIndex++;
+			}
+		}
+		fileUpload(saveFileFormData).then( (value) => {
+			if(modalType == 'planFile'){
+				$.ajax({
+					url: '<c:url value="/sc/planFileIU"/>',
+					type : 'POST',
+	// 				async: false,
+	// 				datatype: 'json',
+					data:	{
+						'orderDtlNo':	orderDtlNo,
+						'orderDtlSeq': orderDtlSeq,
+		            	'planUuid'	:	(value+$('#planFileNm').val()),
+		            	'floorPlan'	:	$('#planFileNm').text(),
+		            },
+	// 				contentType : "application/json; charset=UTF-8",
+					beforeSend: function() {
+		            	//$('#my-spinner').show();
+		            },
+					success : function(res) {
+	// 					fileNumber = 0;
+						fileFormData = new FormData();
+						scmUpvoteYnTable.ajax.reload(function() {});
+						planTable.ajax.reload(function() {});
+						$('#btnPlanSave').attr('disabled', true);
+						$('#allCheckBox').prop('checked', false);
+						toastr.success('저장되었습니다.');
+						$('#my-spinner').hide();
+						$('#planFile').val('');
+					},
+				});
+			}else if(modalType == 'reportFile'){
+				$.ajax({
+					url: '<c:url value="/sc/reportFileIU"/>',
+					type : 'POST',
+	// 				async: false,
+	// 				datatype: 'json',
+					data:	{
+						'orderDtlNo':	orderDtlNo,
+						'orderDtlSeq': orderDtlSeq,
+		            	'reportUuid':	(value+$('#reportFileNm').val()),
+		            	'reports'	:	$('#reportFileNm').text(),
+		            },
+	// 				contentType : "application/json; charset=UTF-8",
+					beforeSend: function() {
+		            	//$('#my-spinner').show();
+		            },
+					success : function(res) {
+	// 					fileNumber = 0;
+						fileFormData = new FormData();
+						scmUpvoteYnTable.ajax.reload(function() {});
+						reportTable.ajax.reload(function() {});
+						$('#btnReportSave').attr('disabled', true);
+						$('#allCheckBox').prop('checked', false);
+						toastr.success('저장되었습니다.');
+						$('#my-spinner').hide();
+						$('#planFile').val('');
+					},
+				});
+			}
+		})
+		.catch( (error) => {
+			toasrt.warning(error);												
+		});
+	});
+
+
+	$(document).on('click','#btnPlanDel, #btnReportDel', function() {
+		if(modalType == 'planFile'){
+			if( !$('#planTable tbody tr').hasClass('selected') ){
+				toastr.warning('삭제할 행을 선택해주세요.');
+				return false;
+			}
+			let uuidData = $('#planTable').DataTable().row('.selected').data().planUuid;
+			if(uuidData!=null && uuidData != '') {
+				$('#fileDeleteModal').modal('show');
+			} else {
+				let uuid = planTable.row('.selected').data().uuid;
+				fileFormData.delete('file-'+uuid);
+				fileFormData.delete('uuid-'+uuid);
+				fileFormData.delete('ext-'+uuid);
+				$('#planTable').DataTable().row('.selected').remove().draw();
+			}
+		}else if(modalType == 'reportFile'){
+			if( !$('#reportTable tbody tr').hasClass('selected') ){
+				toastr.warning('삭제할 행을 선택해주세요.');
+				return false;
+			}
+			let uuidData = $('#reportTable').DataTable().row('.selected').data().reportUuid;
+			if(uuidData!=null && uuidData != '') {
+				$('#fileDeleteModal').modal('show');
+			} else {
+				let uuid = reportTable.row('.selected').data().uuid;
+				fileFormData.delete('file-'+uuid);
+				fileFormData.delete('uuid-'+uuid);
+				fileFormData.delete('ext-'+uuid);
+				$('#reportTable').DataTable().row('.selected').remove().draw();
+			}
+		}
+	});
+	
+	$('#btnFileDeleteModalY').on('click', function() {
+		if(modalType == 'planFile'){
+// 			let orderDtlNo = planTable.row('.selected').data().orderDtlNo;
 			$.ajax({
-				url: '<c:url value="/stock/outProdWhsAdmDel"/>',
+				url: '<c:url value="/sc/planFileIU"/>',
 	            type: 'POST',
 	            data: {
-	                'deleteJson'	:	JSON.stringify(array),
-	                'outNoString'	:	function(){return outNoString;},
+	            	'orderDtlNo':	orderDtlNo,
+	            	'orderDtlSeq':	orderDtlSeq,
+	            	'planUuid'	:	'',
+	            	'floorPlan'	:	'',
 	            },
 	            beforeSend: function() {
 	            	$('#my-spinner').show();
@@ -718,14 +717,11 @@
 				success : function(res) {
 					if (res.result == "ok") { //응답결과
 						toastr.success('삭제되었습니다.');
-						bizOrdOutProdTable.ajax.reload(function() {});
-	        
-						bizOrdOutProdTable.colReorder.enable();
-	        
-						$('#btnSave').attr('disabled', true); // 저장 버튼
-						$('#btnEdit').attr('disabled', false); // 수정 버튼
-						$('#btnCancel').attr('disabled', true); // 취소 버튼
-						$('#btnDel').attr('disabled', false); // 삭제 버튼
+						planTable.ajax.reload();
+						$('#planTable').DataTable().row('.selected').remove().draw();
+						scmUpvoteYnTable.ajax.reload();
+						$('#allCheckBox').prop('checked', false);
+						$('#btnPlanAdd').removeClass('d-none');
 					} else if(res.result == 'fail') {
 						toastr.warning(res.message);
 					} else {
@@ -733,565 +729,49 @@
 					}
 					$('#my-spinner').hide();
 				}
-			}); 	
-		}
-	});
-
-	
-	/* 거래처 모달 */
-	
-	// 거래처조회 버튼 click
-	$('#btnSearchDealCorp').on('click', function() {
-		$('#dealCorpModal').modal('show');
-		$('#dealCorpModal').data('type','search');
-	});
-
-	$(document).on('click','button[name=btnDealCorpSel]',function(){
-		$('#dealCorpModal').modal('show');
-		$('#dealCorpModal').data('type','edit');
-	});
-	
-	$('#dealCorpModal').on('shown.bs.modal', function() {
-		dealCorpModalTable.ajax.reload(function() {});
-	});
-
-
-	
-	// 거래처조회 x 버튼 click
-	$('#btnSearchDealCorpDel').on('click', function() {
-		$('#searchDealCorpNm').val('');
-		$('#searchDealCorpIdx').val('');
-	});
-
-	// 거래처관리 목록조회
-	$('#dealCorpModalTable thead tr').clone(true).addClass('filters').appendTo('#dealCorpModalTable thead'); // filter 생성
-	let dealCorpModalTable = $('#dealCorpModalTable').DataTable({
-		dom : "<'row'<'col-md-12 col-md-6'l><'col-md-12 col-md-6'f>>"
-				+ "<'row'<'col-md-12'tr>>"
-				+ "<'row pt-1'<'d-flex align-items-center d-flex'Bp><'me-lg-auto'><'d-flex align-items-center justify-content-end'i>>",
-		language: lang_kor,
-		info: true,
-		ordering: true,
-		processing: false,
-		paging: false,
-		lengthChange: false,
-		searching: true,
-		autoWidth: false,
-		orderCellsTop: true,
-        fixedHeader: false,
-        scrollY: '100vh',
-        scrollX: true,
-		pageLength: 100000000,
-		colReorder: true,
-		select: {
-            style: 'single',
-            toggleable: false,
-            items: 'row',
-            info: false
-        },
-        ajax : {
-			url : '<c:url value="/bm/dealCorpAdmList"/>',
-			type : 'POST',
-			data : {
-				dealGubun : function(){ return $('#modalDealGubun').val();},
-				dealCorpStatus: function() { return $('#modalDealCorpStatus').val(); }
-			},
-		},
-        rowId: 'idx',
-		columns : [
-			{ data: 'dealGubunNm', className : 'text-center'},
-			{ data: 'dealCorpCd', className : 'text-center'},
-			{ data: 'initial', className : 'text-center'},
-			{ data: 'dealCorpNm', className : 'text-center'},
-			{ data: 'representative', className : 'text-center'},
-			{ data: 'companyNumber', className : 'text-center'},
-		],
-		columnDefs : [
-			{
-				targets: '_all',
-				render: function(data) {
-					return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-				}
-			}
-		],
-		buttons : [
-			{ extend: 'excel',	text: 'Excel',	charset: 'UTF-8', bom: true ,
-				exportOptions: {
-	                modifier: {
-	                   selected:null
-	                },	                
+			});
+		}else if(modalType == 'reportFile'){
+// 			let orderDtlNo = reportTable.row('.selected').data().orderDtlNo;
+			$.ajax({
+				url: '<c:url value="/sc/reportFileIU"/>',
+	            type: 'POST',
+	            data: {
+	            	'orderDtlNo':	orderDtlNo,
+	            	'orderDtlSeq':	orderDtlSeq,
+	            	'reportUuid':	'',
+	            	'reports'	:	'',
 	            },
-	        },
-			{ extend: 'pdf',	text: 'PDF',	},
-			{ extend: 'print',	text: 'Print',		charset: 'UTF-8', bom: true },
-			{ extend: 'colvis',	text: 'Select Col',	},
-		],
-		order : [],
-		drawCallback: function() {
-			let api = this.api();
-			
-			let htmlHeight = parseFloat($('html').css('height'));
-			//let middlecolT_height = parseFloat($('#middlecolT').css('height'));
-			let theadHeight = parseFloat($('#dealCorpModalTable_wrapper').find('.dataTables_scrollHead').css('height'));
-			$('#dealCorpModalTable_wrapper').find('.dataTables_scrollBody').css('height',(htmlHeight - theadHeight - 230)+'px');
-			
-			$('#dealCorpModalTable_filter').addClass('d-none');
-			// 통합검색
-			$('#searchAllAdm').off('keyup',function() {});
-			$('#searchAllAdm').on('keyup',function() {
-				$('#dealCorpModalTable_filter').find('input').val($(this).val());
-				$('#dealCorpModalTable_filter').find('input').trigger('keyup');
-			});
-		},
-		initComplete: function () {
-			let api = this.api();
-			
-			// For each column
-			api.columns().eq(0).each(function (colIdx) {
-				// Set the header cell to contain the input element
-				let cell = $('#dealCorpModalTable_wrapper').find('.filters th').eq(
-					$(api.column(colIdx).header()).index()
-				);
-
-				let title = $(cell).text();
-
-				$(cell).html('<input type="text" class="form-control" placeholder="' + title.replaceAll('*','') + '" />');
-				$(cell).css('padding','2px');
-
-				let cursorPosition = '';
-				
-				// On every keypress in this input
-				$('#dealCorpModalTable_wrapper').find('.filters th').eq($(api.column(colIdx).header()).index()).find('input').off('keyup keyupTrigger').on('keyupTrigger', function (e) {
-					api.column(colIdx).search(this.value, false, false, true).draw();
-				}).on('keyup', function (e) {
-					e.stopPropagation();
-					$(this).trigger('keyupTrigger');
-				});
-			});
-		},
-	});
-	// dataTable colReorder event
-	dealCorpModalTable.on('column-reorder', function( e, settings, details ) {
-		let api = dealCorpModalTable;
-		api.columns().eq(0).each(function (colIdx) {
-			$('#dealCorpModalTable_wrapper').find('.filters th').eq($(api.column(colIdx).header()).index()).find('input').off('keyup keyupTrigger').on('keyupTrigger', function (e) {
-				api.column(colIdx).search(this.value, false, false, true).draw();
-			}).on('keyup', function (e) {
-				e.stopPropagation();
-				$(this).trigger('keyupTrigger');
-			});
-		});
-	});
-
-	// 거래처 모달 조회 버튼 click
-	$('#btnDealCorpModalSearch').on('click', function() {
-		$('#my-spinner').show();
-		dealCorpModalTable.ajax.reload(function() {});
-		
-		setTimeout(function() {
-			$('#my-spinner').hide();
-		}, 100)
-	});
-
-	// 거래처 모달 붙여넣기 버튼 click
-	$('#btnDealCorpModalPaste').on('click', function() {
-		if(!$('#dealCorpModalTable tbody tr').hasClass('selected')){
-			toastr.warning('붙여넣을 행을 선택해주세요.');
-			return false;
-		}
-		let type = $('#dealCorpModal').data('type');
-		let data = dealCorpModalTable.row('.selected').data();
-		if(type =='search'){
-			$('#searchDealCorpNm').val(data.dealCorpNm);
-			$('#searchDealCorpIdx').val(data.idx);
-		} else if(type == 'edit'){
-			let node = bizOrdOutProdTable.row('.selected').node();
-
-			$(node).find('td').eq(bizOrdOutProdTable.column('outProdDealCorpNm:name').index()).find('input[type=hidden]').val(data.idx);
-			$(node).find('td').eq(bizOrdOutProdTable.column('outProdDealCorpNm:name').index()).find('input[type=text]').val(data.dealCorpNm);
-		}
-		$('#dealCorpModal').modal('hide');
-	});
-
-	$('#dealCorpModalTable tbody').on('dblclick','tr',function(){
-		let type = $('#dealCorpModal').data('type');
-		let data = dealCorpModalTable.row(this).data();
-		if(type =='search'){
-			$('#searchDealCorpNm').val(data.dealCorpNm);
-			$('#searchDealCorpIdx').val(data.idx);
-		} else if(type == 'edit'){
-			let node = bizOrdOutProdTable.row('.selected').node();
-
-			$(node).find('td').eq(bizOrdOutProdTable.column('outProdDealCorpNm:name').index()).find('input[type=hidden]').val(data.idx);
-			$(node).find('td').eq(bizOrdOutProdTable.column('outProdDealCorpNm:name').index()).find('input[type=text]').val(data.dealCorpNm);
-		}
-		$('#dealCorpModal').modal('hide');
-	});
-	
-	/* 제품코드 모달  */
-	
-	$('#btnSearchItem').on('click',function(){
-		
-		$('#itemCodeModal').modal('show');
-		setTimeout(function() {
-			itemCodeModalTable.ajax.reload(function() {itemCodeModalTable.draw(false);});
-		}, 200);
-	});
-
-	//제품정보 목록(모달)조회
-	$('#itemCodeModalTable2 thead tr').clone(true).addClass('filters').appendTo('#itemCodeModalTable2 thead'); // filter 생성
-	let itemCodeModalTable = $('#itemCodeModalTable2').DataTable({
-		dom : "<'row'<'col-md-12 col-md-6'l><'col-md-12 col-md-6'f>>"
-				+ "<'row'<'col-md-12'tr>>"
-				+ "<'row pt-1'<'d-flex align-items-center d-flex col-sm'B><'me-lg-auto div-align-center col-sm'p><'d-flex align-items-center justify-content-end col-sm'i>>",
-		language: lang_kor,
-		info: true,
-		ordering: true,
-		processing: true,
-		paging: true,
-		lengthChange: false,
-		searching: true,
-		autoWidth: false,
-		orderCellsTop: true,
-        fixedHeader: false,
-        scrollY: '100vh',
-        scrollX: true,
-		pageLength: pageLengthCnt,
-		colReorder: true,
-		select: {
-            style: 'single',
-            toggleable: false,
-            items: 'row',
-            info: false
-        },
-        ajax : {
-			url : '<c:url value="/bm/itemInfoDtlListAll"/>',
-			type : 'GET',
-			data : {
-				useYnCd : function(){return 'Y';},
-				//itemGubun : function(){return $('#searchItemGubun').val();},
-			},
-		},
-        rowId: 'idx',
-		columns : [
-			{ data: 'customerNm', className : 'text-center align-middle'},	//고객사
-			{ data: 'itemNm', className : 'text-center align-middle'}, 		//제품명
-			{ data: 'relayNotice', className : 'text-start align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space:pre-line;width:330px;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//건별전달사항
-			{ data: 'knifeTipSize', className : 'text-center align-middle'},	//칼끝규격
-			{ data: 'customerItemCd', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//자재코드	
-			{ data: 'versionNum', className : 'text-center align-middle'},	//버전번호
-			{ data: 'paperType', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//재질	
-			{ data: 'cutQty', className : 'text-end align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+addCommas(parseFloat(data))+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//절수	
-			{ data: 'eaQty', className : 'text-end align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+addCommas(parseFloat(data))+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//개수			
-			{ data: 'itemColor', className : 'text-center align-middle'},	//color		
-			{ data: 'frequencyNm', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//도수
-			{ data: 'itemSize', className : 'text-center align-middle'},		//사이즈
-			{ data: 'coatingMethod', className : 'text-center align-middle'},//코팅방법
-			{ data: 'specialNotice', className : 'text-start align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space:pre-line;width:330px;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},//특이사항
-			{ data: 'moldingMethod', className : 'text-center align-middle'},//성형방식
-			{ data: 'moldingContents', className : 'text-center align-middle'},//성형내용
-			{ data: 'bundleMethodNm', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},//묶음법
-			{ data: 'bundleUnit', className : 'text-center align-middle'},	//묶음단위
-			{ data: 'packMethodNm', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-					} else {
-						return "";
-					}
-				}	
-			}, //포장박스
-			{ data: 'packUnit', className : 'text-center align-middle'},		//포장단위
-			{ data: 'etc1Nm', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//호기(기타1)	
-			{ data: 'woodenCareNm', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//목형번호			
-			{ data: 'holeWoodenCd', className : 'text-center align-middle'},	//타공목형번호
-			{ data: 'resinBoardNm', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//수지판번호	
-			{ data: 'pressMethod', className : 'text-center align-middle'},	//동판번호
-			{ data: 'stock', className : 'text-end  align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+addCommas(parseInt(data))+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},		//현재고량		
-			{ data: 'inspectMethodNm', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//검수방법
-			{ data: 'printingYnCheckNm', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},//착인여부			
-			{ data: 'useYnCd', className : 'text-center align-middle',		//사용여부
-				render : function(data, type, row, meta) {
-					if(data == 'Y'){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">사용</div>';
-					} else if (data == 'N'){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">미사용</div>';
-					} else {
-						return "";
-					}
-				}			
-			},			
-			{ data: 'detailDate', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+moment(data,'YYYY-MM-DD').format('YYYY-MM-DD')+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//일자	
-			{ data: 'etc2Cd', className : 'text-center align-middle',
-				render : function(data, type, row, meta) {
-					if(data != null){
-						return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-						
-					} else {
-						return "";
-					}
-				}	
-			},	//후가공판번호	
-			{ data: 'etc3', className : 'text-center align-middle'},	//부분UV	
-			{ data: 'etc4', className : 'text-center align-middle'},	//FOIL	
-			{ data: 'etc5', className : 'text-center align-middle'},	//FOIL COLOR	
-			{ data: 'etc6', className : 'text-center align-middle'},	//형압
-			{ data: 'etc7', className : 'text-center align-middle'},	//기타1
-			{ data: 'etc8', className : 'text-center align-middle'},	//기타2
-			{ data: 'etc9', className : 'text-center align-middle'},	//기타3
-		],
-		columnDefs : [
-			{
-				targets: '_all',
-				render: function(data) {
-					return '<div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">'+data+'</div>';
-				}
-			}
-		],
-		buttons : [
-			{ extend: 'excel',	text: 'Excel',	charset: 'UTF-8', bom: true ,
-				exportOptions: {
-	                modifier: {
-	                   selected:null
-	                },	                
+	            beforeSend: function() {
+	            	$('#my-spinner').show();
 	            },
-	        },
-			{ extend: 'pdf',	text: 'PDF',	},
-			{ extend: 'print',	text: 'Print',		charset: 'UTF-8', bom: true },
-			{ extend: 'colvis',	text: 'Select Col',	},
-		],
-		order : [],
-		drawCallback: function() {
-			let api = this.api();
-			let data = api.data();
-			let table_id = $(api.table().node()).attr('id'); // dataTable ID
-			
-			let htmlHeight = parseFloat($('html').css('height'));
-			let theadHeight = parseFloat($('#itemCodeModalTable_wrapper').find('.dataTables_scrollHead').css('height'));
-			$('#'+table_id+'_wrapper').find('.dataTables_scrollBody').css('height',(htmlHeight - theadHeight - 250)+'px');
-			
-			$('#'+table_id+'_filter').addClass('d-none');
-			// 통합검색
-			$('#searchAll').off('keyup',function() {});
-			$('#searchAll').on('keyup',function() {
-				$('#'+table_id+'_filter').find('input').val($(this).val());
-				$('#'+table_id+'_filter').find('input').trigger('keyup');
+				success : function(res) {
+					if (res.result == "ok") { //응답결과
+						toastr.success('삭제되었습니다.');
+						reportTable.ajax.reload();
+// 						$('#reportTable').DataTable().row('.selected').remove().draw();
+						scmUpvoteYnTable.ajax.reload();
+						$('#allCheckBox').prop('checked', false);
+						$('#btnReportAdd').removeClass('d-none');
+					} else if(res.result == 'fail') {
+						toastr.warning(res.message);
+					} else {
+						toastr.error(res.message);
+					}
+					$('#my-spinner').hide();
+				}
 			});
-			
-		},
-		initComplete: function () {
-			let api = this.api();
-			let table_id = $(api.table().node()).attr('id'); // dataTable ID
-			
-			// For each column
-			api.columns().eq(0).each(function (colIdx) {
-				// Set the header cell to contain the input element
-				let cell = $('#itemCodeModalTable_wrapper').find('.filters th').eq(
-					$(api.column(colIdx).header()).index()
-				);
-
-				let title = $(cell).text();
-
-				$(cell).html('<input type="text" class="form-control" placeholder="' + title + '" />');
-				$(cell).css('padding','2px');
-
-				let cursorPosition = '';
-				
-				// On every keypress in this input
-				$('#itemCodeModalTable_wrapper').find('.filters th').eq($(api.column(colIdx).header()).index()).find('input').off('keyup keyupTrigger').on('keyupTrigger', function (e) {
-					api.column(colIdx).search(this.value, false, false, true).draw();
-				}).on('keyup', function (e) {
-					e.stopPropagation();
-					$(this).trigger('keyupTrigger');
-				});
-			});
-		},
-	});
-	// dataTable colReorder event
-	itemCodeModalTable.on('column-reorder', function( e, settings, details ) {
-		let api = itemCodeModalTable;
-		api.columns().eq(0).each(function (colIdx) {
-			$('#itemCodeModalTable_wrapper').find('.filters th').eq($(api.column(colIdx).header()).index()).find('input').off('keyup keyupTrigger').on('keyupTrigger', function (e) {
-				api.column(colIdx).search(this.value, false, false, true).draw();
-			}).on('keyup', function (e) {
-				e.stopPropagation();
-				$(this).trigger('keyupTrigger');
-			});
-		});
-	});
-
-	$('#btnItemCodeModalPaste').on('click',function(){
-		if( !$('#itemCodeModalTable tbody tr').hasClass('selected') ){
-			toastr.warning('붙여넣을 행을 선택해주세요.');
-			return false;
-		}
-
-		let data = itemCodeModalTable.row('.selected').data();
-		$('#itemNm').val(data.itemNm);
-		$('#itemIdx').val(data.idx);
-		$('#itemCodeModal').modal('hide');
-	});
-
-	$('#itemCodeModalTable tbody').on('dblclick','tr',function(){
-		let data = itemCodeModalTable.row(this).data();
-		$('#itemNm').val(data.itemNm);
-		$('#itemIdx').val(data.idx);
-		$('#itemCodeModal').modal('hide');
-	});
-	
-	// 모든 체크박스 체크/해제 되도록
-	$(document).on('change','input:checkbox[name=btnCheck]', function(){
-		if( $('input:checkbox[name=btnCheck]').length == $('input:checkbox[name=btnCheck]:checked').length ){ //전체 체크박스 수와 체크된 박스의 수가 같을 때 -> 전체체크박스 체크 , 아닐 경우 해제
-			$('#btnAllCheck').prop('checked',true);
-		} else{
-			$('#btnAllCheck').prop('checked',false);
-		}
- 	});
-
-	//모든 체크박스 선택
-	$('#btnAllCheck').on('click',function(){
-		if($('#btnAllCheck').prop("checked")){
-			$('input:checkbox[name=btnCheck]').prop('checked',true);
-		}else{
-			$('input:checkbox[name=btnCheck]').prop('checked',false);
 		}
 	});
 	
+	//전체체크
+	$('#allCheckBox').on('click', function(){
+		if($(this).is(':checked')){
+			$('[name=scmCheckBox]').prop('checked', true);
+		} else {
+			$('[name=scmCheckBox]').prop('checked', false);
+		}
+	});
+
 </script>
 
 </body>
