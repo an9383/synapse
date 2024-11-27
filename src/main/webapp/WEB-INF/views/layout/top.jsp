@@ -16,7 +16,7 @@
 	<%-- <link rel="shortcut icon" sizes="239x232" href="<c:url value='/resources/assets/images/hygino_icon_239x232.ico?ver=1'/>" type="image/x-icon">  --%>
 	<link rel="shortcut icon" href="<c:url value='/resources/assets/images/hygino_icon232.ico?ver=1'/>" type="image/x-icon">
 	<!-- bootstrap -->
-	<link rel="stylesheet" href="<c:url value='/resources/assets/vendor/bootstrap/css/bootstrap-5.2.0.min.css?ver=2.1'/>"> <!-- bootstrap 5.2.0 -->
+	<link rel="stylesheet" href="<c:url value='/resources/assets/vendor/bootstrap/css/bootstrap-5.2.0.min.css?ver=5.2.0'/>"> <!-- bootstrap 5.2.0 -->
 	
 	<!-- jquery dataTables -->
 	<link rel="stylesheet" href="<c:url value='/resources/assets/vendor/dataTables/datatables.css?ver=1.2'/>"> <!-- core -->

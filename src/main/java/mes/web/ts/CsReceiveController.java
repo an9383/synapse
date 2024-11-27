@@ -32,7 +32,7 @@ public class CsReceiveController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CsReceiveController.class);
 	
-	// bssc0140 페이지
+//	// bssc0140 페이지
 //	@RequestMapping(value = "/ts/tssc0010", method = RequestMethod.GET)
 //	public ModelAndView tssc0010(ModelAndView mav, HttpServletRequest request) {
 //		logger.info("page : /ts/tssc0010");

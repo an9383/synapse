@@ -8,15 +8,12 @@
 <script src="<c:url value='/resources/assets/vendor/jquery/jquery-3.6.0.min.js?ver=3.6.0'/>"></script> <!-- jquery 3.6.0 -->
 <script src="<c:url value='/resources/assets/vendor/jquery-ui/jquery-ui.min.js?ver=3.6.0'/>"></script> <!-- jquery UI 1.12.0 -->
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<%-- <script src="<c:url value='/resources/assets/vendor/bootstrap/js/bootstrap-5.2.0.bundle.min.js?ver=5.2.3'/>"></script> <!-- bootstrap 5.2.3 --> --%>
 
 <script src="<c:url value='/resources/assets/vendor/toastr/js/toastr.min.js?version=2.1.4'/>"></script> <!-- toastr 2.1.4 -->
 <script src="<c:url value='/resources/assets/vendor/jstree/dist/jstree.min.js?ver=1.0'/>"></script> <!-- jstree 3.3.12 -->
-
-
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
+<script src="<c:url value='/resources/assets/vendor/bootstrap-toggle/bootstrap-toggle.js?ver=1.5'/>"></script> <!-- bootstrap toggle -->
 <script src="<c:url value='/resources/assets/vendor/panzoom-master/panzoom.js?ver=1.0'/>"></script> <!-- panzoom -->
 <script src="<c:url value='/resources/assets/vendor/select2/dist/js/select2.full.js?ver=1.0'/>"></script> <!-- select2 4.0.13 -->
 <script src="<c:url value='/resources/assets/vendor/jQuery.print-master/jQuery.print.js?ver=1.0'/>"></script> <!-- jqueryPrint -->
@@ -27,7 +24,6 @@
 <script src="<c:url value='/resources/assets/vendor/sortable/Sortable.min.js?ver=1.0'/>"></script> <!-- Sortable -->
 <script src="<c:url value='/resources/assets/vendor/table2excel/xlsx.full.min.js?ver=1.0'/>"></script> <!-- jquery.table2excel --> 
 <script src="<c:url value='/resources/assets/vendor/table2excel/FileSaver.min.js?ver=1.0'/>"></script> <!-- jquery.table2excel --> 
-
 
 <!-- jquery dataTables -->
 <script src="<c:url value='/resources/assets/vendor/dataTables/datatables.js?ver=1.2'/>"></script> <!-- core -->
