@@ -13,6 +13,7 @@
 ### Eclipse ###
 .metadata
 .classpath
+.factorypath
 bin/
 tmp/
 *.tmp
